@@ -12,7 +12,7 @@ import lombok.Setter;
 public class PatioDTO {
 
     private Long idPatio;
-    private String name;
+    private String nome;
     private String localizacao;
     private String  descricao;
 }

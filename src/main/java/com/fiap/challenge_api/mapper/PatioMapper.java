@@ -8,7 +8,7 @@ import org.mapstruct.MappingConstants;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PatioMapper {
 
-    PatioDTO toDTO(Patio entity);
+    PatioDTO toDTO(Patio patio);
     Patio toEntity(PatioDTO dto);
 
 }
