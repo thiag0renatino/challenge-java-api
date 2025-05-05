@@ -13,7 +13,7 @@ public class MarcadorFixoDTO {
 
     private Long idMarcadorFixo;
     private String codigoAruco;
-    private Double xPos;
-    private Double yPos;
+    private Float xPos;
+    private Float yPos;
     private Long idPatio;
 }

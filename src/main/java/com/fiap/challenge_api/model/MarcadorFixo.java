@@ -1,7 +1,7 @@
 package com.fiap.challenge_api.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,17 +12,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@Table(name = "marcador_fixo")
 public class MarcadorFixo {
 
     @Id
+    @Column(name = "id_marcador_aruco_fixo")
     private Long idMarcadorFixo;
 
     private String codigoAruco;
 
-    @NotBlank
+    @NotNull
     private Float xPos;
 
-    @NotBlank
+    @NotNull
     private Float yPos;
 
     @ManyToOne
