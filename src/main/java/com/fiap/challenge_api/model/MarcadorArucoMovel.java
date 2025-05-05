@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class MarcadorArucoMovel {
 
     @Id
-    private Long id;
+    private Long idMarcadorArucoMovel;
 
     private String codigoAruco;
 

@@ -15,7 +15,7 @@ import java.util.List;
 public class Posicao {
 
     @Id
-    private Long id;
+    private Long idPosicao;
 
     private Float xPos;
 

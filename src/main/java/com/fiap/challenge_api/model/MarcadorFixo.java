@@ -15,7 +15,7 @@ import java.util.List;
 public class MarcadorFixo {
 
     @Id
-    private Long id;
+    private Long idMarcadorFixo;
 
     private String codigoAruco;
 

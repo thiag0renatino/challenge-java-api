@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 public class MedicaoPosicao {
 
     @Id
-    private Long id;
+    private Long idMedicaoPosicao;
 
     private Double distanciaM;
 

@@ -19,7 +19,7 @@ import java.util.List;
 public class Moto {
 
     @Id
-    private Long id;
+    private Long idMoto;
 
     @Column(unique = true, length = 7)
     private String placa;
