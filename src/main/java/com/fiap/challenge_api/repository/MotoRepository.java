@@ -10,4 +10,5 @@ public interface MotoRepository extends JpaRepository<Moto, Long> {
     List<Moto> findByPlacaStartsWithIgnoreCase(String placa);
     List<Moto> findByStatusIgnoreCase(String status);
 
+
 }
