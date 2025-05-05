@@ -1,9 +1,6 @@
 package com.fiap.challenge_api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +14,7 @@ public class MedicaoPosicao {
     @Id
     private Long idMedicaoPosicao;
 
+    @Column(name = "distancia_m")
     private Double distanciaM;
 
     @ManyToOne
@@ -24,6 +22,6 @@ public class MedicaoPosicao {
     private Posicao posicao;
 
     @ManyToOne
-    @JoinColumn(name = "marcador_fixo_id")
+    @JoinColumn(name = "marcador_fixo_id_marcador_aruco_fixo")
     private MarcadorFixo marcadorFixo;
 }
