@@ -36,7 +36,7 @@ public class MarcadorFixoService {
 
     public MarcadorFixoDTO findByCodigoAruco(String codigoAruco) {
         MarcadorFixo marcador = repository.findByCodigoAruco(codigoAruco)
-                .orElseThrow(() -> new MarcadorNotFoundException("Marcador não encontrado"));
+                .orElseThrow(() -> new MarcadorNotFoundException(codigoAruco));
         return mapper.toDTO(marcador);
     }
 
