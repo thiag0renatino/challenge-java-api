@@ -13,6 +13,6 @@ public class MedicaoPosicaoDTO {
 
     private Long idMedicaoPosicao;
     private Double distanciaM;
-    private Long posicaoId;
+    private Long idPosicao;
     private Long idMarcadorFixo;
 }

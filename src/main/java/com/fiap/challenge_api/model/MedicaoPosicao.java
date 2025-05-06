@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class MedicaoPosicao {
 
     @Id
+    @Column(name = "id_medicao")
     private Long idMedicaoPosicao;
 
     @Column(name = "distancia_m")
