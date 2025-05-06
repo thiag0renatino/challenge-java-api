@@ -55,6 +55,17 @@ public class PosicaoService {
                 .toList();
     }
 
+    public PosicaoDTO update(Long id, PosicaoDTO dto){
+        Posicao posicaoExist = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        posicaoExist.setXPos(dto.getXPos());
+        posicaoExist.setYPos(dto.getYPos());
+        posicaoExist.setDataHora(dto.getDataHora());
+
+        Posicao posicaoAtt = repository.save(posicaoExist);
+        return mapper.toDTO(posicaoAtt);
+    }
+
     public PosicaoDTO insert(PosicaoDTO dto){
         Posicao posicao = mapper.toEntity(dto);
         return mapper.toDTO(repository.save(posicao));

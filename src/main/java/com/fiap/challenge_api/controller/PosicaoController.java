@@ -47,6 +47,11 @@ public class PosicaoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<PosicaoDTO> update(@PathVariable Long id, @RequestBody @Valid PosicaoDTO dto){
+        return ResponseEntity.ok(service.update(id, dto));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id, @RequestBody @Valid PosicaoDTO dto){
         service.delete(id);
