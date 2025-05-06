@@ -1,10 +1,7 @@
 package com.fiap.challenge_api.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,11 +15,12 @@ import java.time.LocalDate;
 public class MarcadorArucoMovel {
 
     @Id
+    @Column(name = "id_marcador_movel")
     private Long idMarcadorArucoMovel;
 
     private String codigoAruco;
 
-    @NotBlank
+    @NotNull
     private LocalDate dataInstalacao;
 
     @ManyToOne
