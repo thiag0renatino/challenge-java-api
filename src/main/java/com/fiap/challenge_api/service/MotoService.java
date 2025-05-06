@@ -7,6 +7,8 @@ import com.fiap.challenge_api.repository.MotoRepository;
 import com.fiap.challenge_api.service.exception.PlacaInvalidaException;
 import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -26,6 +28,11 @@ public class MotoService {
                 .stream()
                 .map(mapper::toDTO)
                 .toList();
+    }
+
+    public Page<MotoDTO> findAllPage(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(mapper::toDTO);
     }
 
     public MotoDTO findById(Long id){

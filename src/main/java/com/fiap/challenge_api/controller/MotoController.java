@@ -4,6 +4,8 @@ import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.service.MotoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,11 @@ public class MotoController {
     @GetMapping
     public ResponseEntity<List<MotoDTO>> findAll(){
         return ResponseEntity.ok(service.findAll());
+    }
+
+    @GetMapping("/paginado")
+    public ResponseEntity<Page<MotoDTO>> findAllPage(Pageable pageable) {
+        return ResponseEntity.ok(service.findAllPage(pageable));
     }
 
     @GetMapping("/{id}")
