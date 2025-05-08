@@ -11,6 +11,12 @@ INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (4, 'JKL
 INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (5, 'MNO3P45', 'Mottu Sport 110i', 'indisponível', '2024-01-10');
 INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (6, 'DWE3L09', 'Mottu POP', 'indisponível', '2024-01-16');
 
+INSERT INTO usuario VALUES (1, 'Carlos Oliveira', 'carlos.oliveira@mottu.com', 'HASH1234567890', 'ativo', 1);
+INSERT INTO usuario VALUES (2, 'Ana Souza', 'ana.souza@mottu.com', 'HASHabcdefghij', 'ativo', 2);
+INSERT INTO usuario VALUES (3, 'Bruno Lima', 'bruno.lima@mottu.com', 'HASHklmnopqrst', 'ativo', 3);
+INSERT INTO usuario VALUES (4, 'Marina Rocha', 'marina.rocha@mottu.com', 'HASHuvwxyz9876', 'ativo', 4);
+INSERT INTO usuario VALUES (5, 'João Pedro', 'joao.pedro@mottu.com', 'HASHsenha2024', 'ativo', 5);
+
 INSERT INTO posicao (id_posicao, x_pos, y_pos, data_hora, moto_id_moto, patio_id_patio) VALUES (1, 2.5, 3.0, '2024-05-01 08:30:00', 1, 1);
 INSERT INTO posicao (id_posicao, x_pos, y_pos, data_hora, moto_id_moto, patio_id_patio) VALUES (2, 4.1, 5.2, '2024-05-01 09:15:00', 2, 1);
 INSERT INTO posicao (id_posicao, x_pos, y_pos, data_hora, moto_id_moto, patio_id_patio) VALUES (3, 7.0, 8.0, '2024-05-01 10:00:00', 3, 2);

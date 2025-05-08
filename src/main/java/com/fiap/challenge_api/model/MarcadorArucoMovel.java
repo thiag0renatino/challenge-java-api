@@ -18,9 +18,11 @@ public class MarcadorArucoMovel {
     @Column(name = "id_marcador_movel")
     private Long idMarcadorArucoMovel;
 
+    @Column(name = "codigo_aruco")
     private String codigoAruco;
 
     @NotNull
+    @Column(name = "data_instalacao")
     private LocalDate dataInstalacao;
 
     @ManyToOne

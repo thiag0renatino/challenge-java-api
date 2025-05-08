@@ -1,5 +1,6 @@
 package com.fiap.challenge_api.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
@@ -17,6 +18,7 @@ import java.util.List;
 public class Patio {
 
     @Id
+    @Column(name = "id_patio")
     private Long idPatio;
 
     private String nome;

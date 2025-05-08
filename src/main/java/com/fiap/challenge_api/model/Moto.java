@@ -19,6 +19,7 @@ import java.util.List;
 public class Moto {
 
     @Id
+    @Column(name = "id_moto")
     private Long idMoto;
 
     @Column(unique = true, length = 7)
@@ -29,6 +30,7 @@ public class Moto {
     private String status;
 
     @NotNull
+    @Column(name = "data_cadastro")
     private LocalDate dataCadastro;
 
     @OneToMany(mappedBy = "moto")

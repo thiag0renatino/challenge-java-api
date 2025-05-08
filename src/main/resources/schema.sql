@@ -5,6 +5,17 @@ CREATE TABLE patio (
   descricao VARCHAR(255)
 );
 
+CREATE TABLE usuario (
+  id_usuario INTEGER PRIMARY KEY,
+  nome VARCHAR2(100) NOT NULL,
+  email VARCHAR2(100) UNIQUE NOT NULL,
+  senha VARCHAR2(255) NOT NULL,
+  status VARCHAR2(20) DEFAULT 'ativo',
+  patio_id_patio INTEGER NOT NULL,
+  CONSTRAINT usuario_patio_FK FOREIGN KEY (patio_id_patio) REFERENCES patio(id_patio)
+);
+
+
 CREATE TABLE moto (
   id_moto INT PRIMARY KEY,
   placa VARCHAR(7) UNIQUE,

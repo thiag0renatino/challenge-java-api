@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 public class Usuario {
 
     @Id
+    @Column(name = "id_usuario")
     private Long idUsuario;
 
     @Column(nullable = false, unique = true, length = 100)

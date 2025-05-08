@@ -15,12 +15,16 @@ import java.util.List;
 public class Posicao {
 
     @Id
+    @Column(name = "id_posicao")
     private Long idPosicao;
 
+    @Column(name = "x_pos")
     private Float xPos;
 
+    @Column(name = "y_pos")
     private Float yPos;
 
+    @Column(name = "data_hora")
     private LocalDateTime dataHora;
 
     @ManyToOne

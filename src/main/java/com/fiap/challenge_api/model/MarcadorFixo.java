@@ -19,12 +19,15 @@ public class MarcadorFixo {
     @Column(name = "id_marcador_aruco_fixo")
     private Long idMarcadorFixo;
 
+    @Column(name = "codigo_aruco")
     private String codigoAruco;
 
     @NotNull
+    @Column(name = "x_pos")
     private Float xPos;
 
     @NotNull
+    @Column(name = "y_pos")
     private Float yPos;
 
     @ManyToOne
