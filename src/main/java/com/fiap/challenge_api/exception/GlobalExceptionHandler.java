@@ -1,5 +1,6 @@
 package com.fiap.challenge_api.exception;
 
+import com.fiap.challenge_api.service.exception.EmailNotFoundException;
 import com.fiap.challenge_api.service.exception.MarcadorNotFoundException;
 import com.fiap.challenge_api.service.exception.PlacaInvalidaException;
 import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
@@ -24,6 +25,11 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MarcadorNotFoundException.class)
     public ResponseEntity<String> handleMarcadorNotFoundException(MarcadorNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    }
+
+    @ExceptionHandler(EmailNotFoundException.class)
+    public ResponseEntity<String> handleEmailNotFoundException(EmailNotFoundException e){
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
