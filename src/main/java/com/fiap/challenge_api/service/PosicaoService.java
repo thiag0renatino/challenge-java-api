@@ -6,6 +6,8 @@ import com.fiap.challenge_api.model.Posicao;
 import com.fiap.challenge_api.repository.PosicaoRepository;
 import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +21,7 @@ public class PosicaoService {
     @Autowired
     private PosicaoMapper mapper;
 
+    @Cacheable("posicoes")
     public List<PosicaoDTO> findAll(){
         return repository.findAll()
                 .stream()
@@ -66,6 +69,7 @@ public class PosicaoService {
         return mapper.toDTO(posicaoAtt);
     }
 
+    @CacheEvict(value = "posicoes", allEntries = true)
     public PosicaoDTO insert(PosicaoDTO dto){
         Posicao posicao = mapper.toEntity(dto);
         return mapper.toDTO(repository.save(posicao));
