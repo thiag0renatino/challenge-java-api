@@ -1,9 +1,7 @@
 package com.fiap.challenge_api.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
@@ -12,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class Usuario {
 
     @Id
-    @Column(name = "id_usuario")
     private Long idUsuario;
 
     @Column(nullable = false, unique = true, length = 100)
@@ -25,4 +22,44 @@ public class Usuario {
     @ManyToOne
     @JoinColumn(name = "patio_id_patio")
     private Patio patio;
+
+    public Long getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Patio getPatio() {
+        return patio;
+    }
+
+    public void setPatio(Patio patio) {
+        this.patio = patio;
+    }
 }

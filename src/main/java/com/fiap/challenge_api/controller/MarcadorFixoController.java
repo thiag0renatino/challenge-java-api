@@ -28,8 +28,8 @@ public class MarcadorFixoController {
     }
 
     @GetMapping("/por-codigo")
-    public ResponseEntity<MarcadorFixoDTO> findByCodigoAruco(@RequestParam String codigo) {
-        return ResponseEntity.ok(service.findByCodigoAruco(codigo));
+    public ResponseEntity<MarcadorFixoDTO> findByCodigoAruco(@RequestParam String codigoAruco) {
+        return ResponseEntity.ok(service.findByCodigoAruco(codigoAruco));
     }
 
     @PostMapping

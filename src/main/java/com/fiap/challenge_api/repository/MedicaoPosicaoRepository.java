@@ -11,7 +11,7 @@ public interface MedicaoPosicaoRepository extends JpaRepository<MedicaoPosicao, 
 
     List<MedicaoPosicao> findByPosicaoIdPosicao(Long posicaoId);
 
-    List<MedicaoPosicao> findByMarcadorFixoIdMarcadorFixo(Long marcadorFixoId);
+    List<MedicaoPosicao> findByMarcadorFixoIdMarcadorArucoFixo(Long marcadorFixoId);
 
     @Query("SELECT COUNT(m) FROM MedicaoPosicao m WHERE m.posicao.idPosicao = :id")
     Long contarMedicoesPorPosicao(@Param("id") Long idPosicao);

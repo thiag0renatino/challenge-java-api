@@ -2,9 +2,7 @@ package com.fiap.challenge_api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,18 +14,14 @@ import java.util.List;
 public class MarcadorFixo {
 
     @Id
-    @Column(name = "id_marcador_aruco_fixo")
-    private Long idMarcadorFixo;
+    private Long idMarcadorArucoFixo;
 
-    @Column(name = "codigo_aruco")
     private String codigoAruco;
 
     @NotNull
-    @Column(name = "x_pos")
     private Float xPos;
 
     @NotNull
-    @Column(name = "y_pos")
     private Float yPos;
 
     @ManyToOne
@@ -36,4 +30,52 @@ public class MarcadorFixo {
 
     @OneToMany(mappedBy = "marcadorFixo")
     private List<MedicaoPosicao> medicoes;
+
+    public Long getidMarcadorArucoFixo() {
+        return idMarcadorArucoFixo;
+    }
+
+    public void setidMarcadorArucoFixo(Long idMarcadorArucoFixo) {
+        this.idMarcadorArucoFixo = idMarcadorArucoFixo;
+    }
+
+    public Float getxPos() {
+        return xPos;
+    }
+
+    public void setxPos(Float xPos) {
+        this.xPos = xPos;
+    }
+
+    public String getCodigoAruco() {
+        return codigoAruco;
+    }
+
+    public void setCodigoAruco(String codigoAruco) {
+        this.codigoAruco = codigoAruco;
+    }
+
+    public Patio getPatio() {
+        return patio;
+    }
+
+    public void setPatio(Patio patio) {
+        this.patio = patio;
+    }
+
+    public Float getyPos() {
+        return yPos;
+    }
+
+    public void setyPos(Float yPos) {
+        this.yPos = yPos;
+    }
+
+    public List<MedicaoPosicao> getMedicoes() {
+        return medicoes;
+    }
+
+    public void setMedicoes(List<MedicaoPosicao> medicoes) {
+        this.medicoes = medicoes;
+    }
 }

@@ -1,9 +1,7 @@
 package com.fiap.challenge_api.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
@@ -12,8 +10,7 @@ import lombok.NoArgsConstructor;
 public class MedicaoPosicao {
 
     @Id
-    @Column(name = "id_medicao")
-    private Long idMedicaoPosicao;
+    private Long idMedicao;
 
     @Column(name = "distancia_m")
     private Double distanciaM;
@@ -25,4 +22,36 @@ public class MedicaoPosicao {
     @ManyToOne
     @JoinColumn(name = "marcador_fixo_id_marcador_aruco_fixo")
     private MarcadorFixo marcadorFixo;
+
+    public Long getIdMedicao() {
+        return idMedicao;
+    }
+
+    public void setIdMedicao(Long idMedicao) {
+        this.idMedicao = idMedicao;
+    }
+
+    public Double getDistanciaM() {
+        return distanciaM;
+    }
+
+    public void setDistanciaM(Double distanciaM) {
+        this.distanciaM = distanciaM;
+    }
+
+    public Posicao getPosicao() {
+        return posicao;
+    }
+
+    public void setPosicao(Posicao posicao) {
+        this.posicao = posicao;
+    }
+
+    public MarcadorFixo getMarcadorFixo() {
+        return marcadorFixo;
+    }
+
+    public void setMarcadorFixo(MarcadorFixo marcadorFixo) {
+        this.marcadorFixo = marcadorFixo;
+    }
 }

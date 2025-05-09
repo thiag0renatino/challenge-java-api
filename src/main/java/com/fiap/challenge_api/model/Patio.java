@@ -5,9 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -18,7 +16,6 @@ import java.util.List;
 public class Patio {
 
     @Id
-    @Column(name = "id_patio")
     private Long idPatio;
 
     private String nome;
@@ -33,4 +30,52 @@ public class Patio {
 
     @OneToMany(mappedBy = "patio")
     private List<Posicao> posicoes;
+
+    public Long getIdPatio() {
+        return idPatio;
+    }
+
+    public void setIdPatio(Long idPatio) {
+        this.idPatio = idPatio;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public List<MarcadorFixo> getMarcadoresFixos() {
+        return marcadoresFixos;
+    }
+
+    public void setMarcadoresFixos(List<MarcadorFixo> marcadoresFixos) {
+        this.marcadoresFixos = marcadoresFixos;
+    }
+
+    public List<Posicao> getPosicoes() {
+        return posicoes;
+    }
+
+    public void setPosicoes(List<Posicao> posicoes) {
+        this.posicoes = posicoes;
+    }
+
+    public String getLocalizacao() {
+        return localizacao;
+    }
+
+    public void setLocalizacao(String localizacao) {
+        this.localizacao = localizacao;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 }

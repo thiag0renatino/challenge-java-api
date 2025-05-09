@@ -58,8 +58,8 @@ public class PosicaoService {
     public PosicaoDTO update(Long id, PosicaoDTO dto){
         Posicao posicaoExist = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
-        posicaoExist.setXPos(dto.getXPos());
-        posicaoExist.setYPos(dto.getYPos());
+        posicaoExist.setxPos(dto.getxPos());
+        posicaoExist.setyPos(dto.getyPos());
         posicaoExist.setDataHora(dto.getDataHora());
 
         Posicao posicaoAtt = repository.save(posicaoExist);

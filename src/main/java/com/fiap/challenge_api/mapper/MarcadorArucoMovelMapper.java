@@ -5,14 +5,21 @@ import com.fiap.challenge_api.model.MarcadorArucoMovel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.Mappings;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MarcadorArucoMovelMapper {
 
-    @Mapping(source = "moto.idMoto", target = "idMoto")
+    @Mappings({
+            @Mapping(source = "idMarcadorMovel", target = "idMarcadorMovel"),
+            @Mapping(source = "moto.idMoto", target = "idMoto")
+    })
     MarcadorArucoMovelDTO toDTO(MarcadorArucoMovel entity);
 
-    @Mapping(target = "moto.idMoto", source = "idMoto")
+    @Mappings({
+            @Mapping(source = "idMarcadorMovel", target = "idMarcadorMovel"),
+            @Mapping(source = "idMoto", target = "moto.idMoto")
+    })
     MarcadorArucoMovel toEntity(MarcadorArucoMovelDTO dto);
 
 }

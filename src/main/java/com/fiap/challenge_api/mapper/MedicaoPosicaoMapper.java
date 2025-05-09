@@ -10,12 +10,17 @@ import java.util.List;
 public interface MedicaoPosicaoMapper {
 
     @Mappings({
+            @Mapping(source = "idMedicao", target = "idMedicao"),
             @Mapping(source = "posicao.idPosicao", target = "idPosicao"),
-            @Mapping(source = "marcadorFixo.idMarcadorFixo", target = "idMarcadorFixo")
+            @Mapping(source = "marcadorFixo.idMarcadorArucoFixo", target = "idMarcadorFixo")
     })
     MedicaoPosicaoDTO toDTO(MedicaoPosicao entity);
 
-    @InheritInverseConfiguration
+    @Mappings({
+            @Mapping(source = "idMedicao", target = "idMedicao"),
+            @Mapping(source = "idPosicao", target = "posicao.idPosicao"),
+            @Mapping(source = "idMarcadorFixo", target = "marcadorFixo.idMarcadorArucoFixo")
+    })
     MedicaoPosicao toEntity(MedicaoPosicaoDTO dto);
 
     List<MedicaoPosicaoDTO> toDtoList(List<MedicaoPosicao> entities);

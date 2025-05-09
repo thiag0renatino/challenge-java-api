@@ -28,13 +28,13 @@ public class MarcadorArucoMovelController {
     }
 
     @GetMapping("/por-moto")
-    public ResponseEntity<MarcadorArucoMovelDTO> findByMotoId(@RequestParam Long motoId) {
-        return ResponseEntity.ok(service.findByMotoId(motoId));
+    public ResponseEntity<MarcadorArucoMovelDTO> findByMotoId(@RequestParam Long idMoto) {
+        return ResponseEntity.ok(service.findByMotoId(idMoto));
     }
 
     @GetMapping("/por-codigo")
-    public ResponseEntity<MarcadorArucoMovelDTO> findByCodigoAruco(@RequestParam String codigo) {
-        return ResponseEntity.ok(service.findByCodigoAruco(codigo));
+    public ResponseEntity<MarcadorArucoMovelDTO> findByCodigoAruco(@RequestParam String codigoAruco) {
+        return ResponseEntity.ok(service.findByCodigoAruco(codigoAruco));
     }
 
     @PostMapping

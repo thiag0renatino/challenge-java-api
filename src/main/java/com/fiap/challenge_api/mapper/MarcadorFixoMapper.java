@@ -5,14 +5,21 @@ import com.fiap.challenge_api.model.MarcadorFixo;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
+import org.mapstruct.Mappings;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MarcadorFixoMapper {
 
-    @Mapping(source = "patio.idPatio", target = "idPatio")
+    @Mappings({
+            @Mapping(source = "patio.idPatio", target = "idPatio"),
+            @Mapping(source = "idMarcadorArucoFixo", target = "idMarcadorArucoFixo")
+    })
     MarcadorFixoDTO toDTO(MarcadorFixo entity);
 
-    @Mapping(source = "idPatio", target = "patio.idPatio")
+    @Mappings({
+            @Mapping(source = "idPatio", target = "patio.idPatio"),
+            @Mapping(source = "idMarcadorArucoFixo", target = "idMarcadorArucoFixo")
+    })
     MarcadorFixo toEntity(MarcadorFixoDTO dto);
 
 }

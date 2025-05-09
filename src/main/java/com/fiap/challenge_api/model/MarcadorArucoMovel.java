@@ -2,9 +2,7 @@ package com.fiap.challenge_api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -15,17 +13,46 @@ import java.time.LocalDate;
 public class MarcadorArucoMovel {
 
     @Id
-    @Column(name = "id_marcador_movel")
-    private Long idMarcadorArucoMovel;
+    private Long IdMarcadorMovel;
 
-    @Column(name = "codigo_aruco")
     private String codigoAruco;
 
     @NotNull
-    @Column(name = "data_instalacao")
     private LocalDate dataInstalacao;
 
     @ManyToOne
     @JoinColumn(name = "moto_id_moto")
     private Moto moto;
+
+    public Long getIdMarcadorMovel() {
+        return IdMarcadorMovel;
+    }
+
+    public void setIdMarcadorMovel(Long idMarcadorMovel) {
+        IdMarcadorMovel = idMarcadorMovel;
+    }
+
+    public String getCodigoAruco() {
+        return codigoAruco;
+    }
+
+    public void setCodigoAruco(String codigoAruco) {
+        this.codigoAruco = codigoAruco;
+    }
+
+    public LocalDate getDataInstalacao() {
+        return dataInstalacao;
+    }
+
+    public void setDataInstalacao(LocalDate dataInstalacao) {
+        this.dataInstalacao = dataInstalacao;
+    }
+
+    public Moto getMoto() {
+        return moto;
+    }
+
+    public void setMoto(Moto moto) {
+        this.moto = moto;
+    }
 }

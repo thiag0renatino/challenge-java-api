@@ -37,6 +37,7 @@ public class PosicaoController {
         return ResponseEntity.ok(service.buscarHistoricoDaMoto(motoId));
     }
 
+    // Posições com motos indisponíveis
     @GetMapping("/indisponiveis")
     public ResponseEntity<List<PosicaoDTO>> findPosicoesDeMotosIndisponiveis() {
         return ResponseEntity.ok(service.findPosicoesDeMotosIndisponiveis());

@@ -38,7 +38,7 @@ public class MedicaoPosicaoService {
     }
 
     public List<MedicaoPosicaoDTO> findByMarcadorFixoId(Long idMarcadorFixo) {
-        List<MedicaoPosicao> medicoes = repository.findByMarcadorFixoIdMarcadorFixo(idMarcadorFixo);
+        List<MedicaoPosicao> medicoes = repository.findByMarcadorFixoIdMarcadorArucoFixo(idMarcadorFixo);
         return mapper.toDtoList(medicoes);
     }
 
