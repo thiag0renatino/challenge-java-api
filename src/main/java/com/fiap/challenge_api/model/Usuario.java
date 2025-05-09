@@ -15,6 +15,9 @@ public class Usuario {
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
+    @Column(nullable = false, length = 100)
+    private String nome;
+
     private String senha;
 
     private String status = "ativo";
@@ -61,5 +64,13 @@ public class Usuario {
 
     public void setPatio(Patio patio) {
         this.patio = patio;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 }

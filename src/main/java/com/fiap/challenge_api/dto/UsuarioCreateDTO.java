@@ -1,16 +1,26 @@
 package com.fiap.challenge_api.dto;
 
-import lombok.*;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UsuarioDTO {
+public class UsuarioCreateDTO {
 
     private Long idUsuario;
+
+    @NotBlank
     private String email;
+
+    @NotBlank
+    private String senha;
+
+    @NotBlank
     private String nome;
-    private String status;
+
     private Long patioId;
 
     public Long getIdUsuario() {
@@ -29,12 +39,12 @@ public class UsuarioDTO {
         this.email = email;
     }
 
-    public String getStatus() {
-        return status;
+    public String getSenha() {
+        return senha;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     public Long getPatioId() {
