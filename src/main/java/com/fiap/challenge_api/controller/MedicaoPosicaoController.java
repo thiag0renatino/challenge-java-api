@@ -4,6 +4,7 @@ import com.fiap.challenge_api.dto.MedicaoPosicaoDTO;
 import com.fiap.challenge_api.service.MedicaoPosicaoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,7 +46,7 @@ public class MedicaoPosicaoController {
 
     @PostMapping
     public ResponseEntity<MedicaoPosicaoDTO> insert(@RequestBody @Valid MedicaoPosicaoDTO dto){
-        return ResponseEntity.ok(service.insert(dto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
     @DeleteMapping("/{id}")
