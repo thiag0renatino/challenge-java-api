@@ -2,6 +2,7 @@ package com.fiap.challenge_api.controller;
 
 import com.fiap.challenge_api.dto.PatioDTO;
 import com.fiap.challenge_api.service.PatioService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,32 +18,44 @@ public class PatioController {
     @Autowired
     private PatioService service;
 
+    @Operation(summary = "Listar todos os pátios",
+            description = "Retorna uma lista com todos os pátios cadastrados")
     @GetMapping
     public ResponseEntity<List<PatioDTO>> findAll(){
         return ResponseEntity.ok(service.findAll());
     }
 
+    @Operation(summary = "Buscar pátio por ID",
+            description = "Retorna um pátio específico com base no ID informado")
     @GetMapping("/{id}")
     public ResponseEntity<PatioDTO> findById(@PathVariable Long id){
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @Operation(summary = "Listar pátios com motos",
+            description = "Retorna apenas os pátios que possuem motos cadastradas")
     @GetMapping("/com-motos")
     public ResponseEntity<List<PatioDTO>> findPatiosComMotos() {
         List<PatioDTO> patios = service.findPatiosComMotos();
         return ResponseEntity.ok(patios);
     }
 
+    @Operation(summary = "Cadastrar novo pátio",
+            description = "Cria um novo pátio no sistema com os dados fornecidos")
     @PostMapping
     public ResponseEntity<PatioDTO> insert(@RequestBody @Valid PatioDTO dto){
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
+    @Operation(summary = "Atualizar pátio",
+            description = "Atualiza os dados de um pátio existente com base no ID fornecido")
     @PutMapping("/{id}")
     public ResponseEntity<PatioDTO> update(@PathVariable Long id, @RequestBody @Valid PatioDTO dto){
         return ResponseEntity.ok(service.update(id,dto));
     }
 
+    @Operation(summary = "Excluir pátio",
+            description = "Remove um pátio do sistema com base no ID informado")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
