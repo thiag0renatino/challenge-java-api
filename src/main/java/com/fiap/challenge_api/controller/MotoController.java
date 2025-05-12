@@ -1,7 +1,9 @@
 package com.fiap.challenge_api.controller;
 
 import com.fiap.challenge_api.dto.MotoDTO;
+import com.fiap.challenge_api.dto.PosicaoDTO;
 import com.fiap.challenge_api.service.MotoService;
+import com.fiap.challenge_api.service.PosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class MotoController {
 
     @Autowired
     private MotoService service;
+
+    @Autowired
+    private PosicaoService posicaoService;
 
     @Operation(summary = "Listar todas as motos",
             description = "Retorna uma lista com todas as motos cadastradas")
@@ -54,6 +59,14 @@ public class MotoController {
     public ResponseEntity<List<MotoDTO>> findByStatus(@PathVariable String status){
         return ResponseEntity.ok(service.findByStatus(status));
     }
+
+    @Operation(summary = "Listar posições da moto",
+            description = "Retorna todas as posições registradas associadas a uma moto específica")
+    @GetMapping("/{id}/posicoes")
+    public ResponseEntity<List<PosicaoDTO>> findPosicoesPorMoto(@PathVariable Long id) {
+        return ResponseEntity.ok(posicaoService.findByMotoId(id));
+    }
+
 
     @Operation(summary = "Cadastrar nova moto",
             description = "Cria uma nova moto com os dados fornecidos")

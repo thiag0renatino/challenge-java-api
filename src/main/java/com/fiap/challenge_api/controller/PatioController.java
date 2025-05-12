@@ -2,8 +2,10 @@ package com.fiap.challenge_api.controller;
 
 import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.dto.PatioDTO;
+import com.fiap.challenge_api.dto.PosicaoDTO;
 import com.fiap.challenge_api.service.MotoService;
 import com.fiap.challenge_api.service.PatioService;
+import com.fiap.challenge_api.service.PosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class PatioController {
 
     @Autowired
     private MotoService motoService;
+
+    @Autowired
+    private PosicaoService posicaoService;
 
     @Operation(summary = "Listar todos os pátios",
             description = "Retorna uma lista com todos os pátios cadastrados")
@@ -48,9 +53,17 @@ public class PatioController {
     @Operation(summary = "Listar motos com histórico de passagem pelo pátio",
             description = "Retorna todas as motos que já tiveram uma posição registrada neste pátio")
     @GetMapping("/{id}/motos")
-    public ResponseEntity<List<MotoDTO>> listarMotosPorPatio(@PathVariable Long id) {
+    public ResponseEntity<List<MotoDTO>> findMotosPorPatio(@PathVariable Long id) {
         return ResponseEntity.ok(motoService.findMotosPorHistoricoDePosicaoNoPatio(id));
     }
+
+    @Operation(summary = "Listar posições registradas no pátio",
+            description = "Retorna todas as posições que foram registradas dentro do pátio informado")
+    @GetMapping("/{id}/posicoes")
+    public ResponseEntity<List<PosicaoDTO>> findPosicoesPorPatio(@PathVariable Long id) {
+        return ResponseEntity.ok(posicaoService.findByPatioId(id));
+    }
+
 
     @Operation(summary = "Cadastrar novo pátio",
             description = "Cria um novo pátio no sistema com os dados fornecidos")

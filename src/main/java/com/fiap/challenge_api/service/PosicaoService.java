@@ -36,7 +36,6 @@ public class PosicaoService {
                 .toList();
     }
 
-
     public List<PosicaoDTO> findTop10ByOrderByDataHoraDesc() {
         return repository.findTop10ByOrderByDataHoraDesc()
                 .stream()
@@ -53,6 +52,13 @@ public class PosicaoService {
 
     public List<PosicaoDTO> findPosicoesDeMotosIndisponiveis() {
         return repository.findPosicoesDeMotosIndisponiveis()
+                .stream()
+                .map(mapper::toDTO)
+                .toList();
+    }
+
+    public List<PosicaoDTO> findByPatioId(Long patioId) {
+        return repository.findByPatioIdPatio(patioId)
                 .stream()
                 .map(mapper::toDTO)
                 .toList();

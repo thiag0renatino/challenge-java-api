@@ -18,4 +18,6 @@ public interface PosicaoRepository extends JpaRepository<Posicao, Long> {
 
     @Query("SELECT p FROM Posicao p WHERE p.moto.status = 'indisponível'")
     List<Posicao> findPosicoesDeMotosIndisponiveis();
+
+    List<Posicao> findByPatioIdPatio(Long patioId);
 }
