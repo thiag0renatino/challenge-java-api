@@ -31,6 +31,9 @@ public class Patio {
     @OneToMany(mappedBy = "patio")
     private List<Posicao> posicoes;
 
+    @OneToMany(mappedBy = "patio")
+    private List<Usuario> usuarios;
+
     public Long getIdPatio() {
         return idPatio;
     }
