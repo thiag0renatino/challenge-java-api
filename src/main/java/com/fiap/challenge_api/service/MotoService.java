@@ -55,6 +55,13 @@ public class MotoService {
                 .toList();
     }
 
+    public List<MotoDTO> findMotosPorHistoricoDePosicaoNoPatio(Long patioId) {
+        return repository.findMotosQuePassaramPorPatio(patioId)
+                .stream()
+                .map(mapper::toDTO)
+                .toList();
+    }
+
     public MotoDTO insert(MotoDTO dto){
         Moto moto = mapper.toEntity(dto);
         moto.setDataCadastro(LocalDate.now());

@@ -1,6 +1,8 @@
 package com.fiap.challenge_api.controller;
 
+import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.dto.PatioDTO;
+import com.fiap.challenge_api.service.MotoService;
 import com.fiap.challenge_api.service.PatioService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -17,6 +19,9 @@ public class PatioController {
 
     @Autowired
     private PatioService service;
+
+    @Autowired
+    private MotoService motoService;
 
     @Operation(summary = "Listar todos os pátios",
             description = "Retorna uma lista com todos os pátios cadastrados")
@@ -38,6 +43,13 @@ public class PatioController {
     public ResponseEntity<List<PatioDTO>> findPatiosComMotos() {
         List<PatioDTO> patios = service.findPatiosComMotos();
         return ResponseEntity.ok(patios);
+    }
+
+    @Operation(summary = "Listar motos com histórico de passagem pelo pátio",
+            description = "Retorna todas as motos que já tiveram uma posição registrada neste pátio")
+    @GetMapping("/{id}/motos")
+    public ResponseEntity<List<MotoDTO>> listarMotosPorPatio(@PathVariable Long id) {
+        return ResponseEntity.ok(motoService.findMotosPorHistoricoDePosicaoNoPatio(id));
     }
 
     @Operation(summary = "Cadastrar novo pátio",
