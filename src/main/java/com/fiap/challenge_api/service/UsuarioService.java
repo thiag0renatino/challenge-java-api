@@ -81,4 +81,10 @@ public class UsuarioService {
         Usuario usuarioAtt = repository.save(usuarioExist);
         return mapper.toDTO(usuarioAtt);
     }
+
+    public void delete(Long id){
+        Usuario usuario = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+        repository.delete(usuario);
+    }
 }

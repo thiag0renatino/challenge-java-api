@@ -54,4 +54,12 @@ public class UsuarioController {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
+    @Operation(summary = "Excluir usuário",
+    description = "Remove um usuário do sistema com base no ID informado")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }
