@@ -54,7 +54,7 @@ public class MotoController {
     }
 
     @Operation(summary = "Listar motos por status",
-            description = "Retorna as motos que possuem o status informado (ex: ATIVA, INDISPONÍVEL)")
+            description = "Retorna as motos que possuem o status informado (ex: Pronta, Revisão)")
     @GetMapping("/status/{status}")
     public ResponseEntity<List<MotoDTO>> findByStatus(@PathVariable String status){
         return ResponseEntity.ok(service.findByStatus(status));

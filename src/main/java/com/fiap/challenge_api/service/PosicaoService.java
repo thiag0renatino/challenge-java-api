@@ -3,6 +3,8 @@ package com.fiap.challenge_api.service;
 import com.fiap.challenge_api.dto.PosicaoDTO;
 import com.fiap.challenge_api.mapper.PosicaoMapper;
 import com.fiap.challenge_api.model.Posicao;
+import com.fiap.challenge_api.repository.MotoRepository;
+import com.fiap.challenge_api.repository.PatioRepository;
 import com.fiap.challenge_api.repository.PosicaoRepository;
 import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,12 @@ public class PosicaoService {
 
     @Autowired
     private PosicaoRepository repository;
+
+    @Autowired
+    private MotoRepository motoRepository;
+
+    @Autowired
+    private PatioRepository patioRepository;
 
     @Autowired
     private PosicaoMapper mapper;
@@ -50,8 +58,8 @@ public class PosicaoService {
                 .toList();
     }
 
-    public List<PosicaoDTO> findPosicoesDeMotosIndisponiveis() {
-        return repository.findPosicoesDeMotosIndisponiveis()
+    public List<PosicaoDTO> findPosicoesDeMotosRevisao() {
+        return repository.findPosicoesDeMotosRevisao()
                 .stream()
                 .map(mapper::toDTO)
                 .toList();
@@ -64,12 +72,23 @@ public class PosicaoService {
                 .toList();
     }
 
+    @CacheEvict(value = "posicoes", allEntries = true)
     public PosicaoDTO update(Long id, PosicaoDTO dto){
         Posicao posicaoExist = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
-        posicaoExist.setxPos(dto.getxPos());
-        posicaoExist.setyPos(dto.getyPos());
+        posicaoExist.setXPos(dto.getXPos());
+        posicaoExist.setYPos(dto.getYPos());
         posicaoExist.setDataHora(dto.getDataHora());
+
+        if (dto.getIdMoto() != null) {
+            posicaoExist.setMoto(motoRepository.findById(dto.getIdMoto())
+                    .orElseThrow(() -> new ResourceNotFoundException(dto.getIdMoto())));
+        }
+
+        if (dto.getIdPatio() != null) {
+            posicaoExist.setPatio(patioRepository.findById(dto.getIdPatio())
+                    .orElseThrow(() -> new ResourceNotFoundException(dto.getIdPatio())));
+        }
 
         Posicao posicaoAtt = repository.save(posicaoExist);
         return mapper.toDTO(posicaoAtt);
@@ -81,6 +100,7 @@ public class PosicaoService {
         return mapper.toDTO(repository.save(posicao));
     }
 
+    @CacheEvict(value = "posicoes", allEntries = true)
     public void delete(Long id){
         Posicao posicao = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));

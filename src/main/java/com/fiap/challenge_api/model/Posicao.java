@@ -73,19 +73,19 @@ public class Posicao {
         this.medicoes = medicoes;
     }
 
-    public Float getyPos() {
+    public Float getYPos() {
         return yPos;
     }
 
-    public void setyPos(Float yPos) {
+    public void setYPos(Float yPos) {
         this.yPos = yPos;
     }
 
-    public Float getxPos() {
+    public Float getXPos() {
         return xPos;
     }
 
-    public void setxPos(Float xPos) {
+    public void setXPos(Float xPos) {
         this.xPos = xPos;
     }
 }

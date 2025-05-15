@@ -16,8 +16,8 @@ public interface PosicaoRepository extends JpaRepository<Posicao, Long> {
     @Query("SELECT p FROM Posicao p WHERE p.moto.idMoto = :motoId ORDER BY p.dataHora DESC")
     List<Posicao> buscarHistoricoDaMoto(@Param("motoId") Long motoId);
 
-    @Query("SELECT p FROM Posicao p WHERE p.moto.status = 'indisponível'")
-    List<Posicao> findPosicoesDeMotosIndisponiveis();
+    @Query("SELECT p FROM Posicao p WHERE p.moto.status = 'Revisão'")
+    List<Posicao> findPosicoesDeMotosRevisao();
 
     List<Posicao> findByPatioIdPatio(Long patioId);
 }

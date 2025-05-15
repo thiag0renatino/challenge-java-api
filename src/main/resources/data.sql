@@ -4,12 +4,12 @@ INSERT INTO patio (id_patio, nome, localizacao, descricao) VALUES (3, 'Pátio Su
 INSERT INTO patio (id_patio, nome, localizacao, descricao) VALUES (4, 'Pátio Oeste', 'Cuiabá - MT', 'Alta capacidade de motos');
 INSERT INTO patio (id_patio, nome, localizacao, descricao) VALUES (5, 'Pátio Leste', 'Vitória - ES', 'Operação recente');
 
-INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (1, 'ABC1D23', 'Mottu Sport 110i', 'ativa', '2024-03-01');
-INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (2, 'DEF4G56', 'Mottu-e', 'em manutenção', '2024-04-15');
-INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (3, 'GHI7J89', 'Mottu POP', 'disponível', '2024-02-20');
-INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (4, 'JKL0M12', 'Mottu Sport 110i', 'ativa', '2024-03-05');
-INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (5, 'MNO3P45', 'Mottu Sport 110i', 'indisponível', '2024-01-10');
-INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (6, 'DWE3L09', 'Mottu POP', 'indisponível', '2024-01-16');
+INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (1, 'ABC1D23', 'Mottu Sport 110i', 'Sem peça', '2024-03-01');
+INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (2, 'DEF4G56', 'Mottu-e', 'Pronta', '2024-04-15');
+INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (3, 'GHI7J89', 'Mottu POP', 'Revisão', '2024-02-20');
+INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (4, 'JKL0M12', 'Mottu Sport 110i', 'Motor', '2024-03-05');
+INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (5, 'MNO3P45', 'Mottu Sport 110i', 'Pronta', '2024-01-10');
+INSERT INTO moto (id_moto, placa, modelo, status, data_cadastro) VALUES (6, 'DWE3L09', 'Mottu POP', 'Revisão', '2024-01-16');
 
 INSERT INTO usuario VALUES (1, 'Carlos Oliveira', 'carlos.oliveira@mottu.com', 'HASH1234567890', 'ativo', 1);
 INSERT INTO usuario VALUES (2, 'Ana Souza', 'ana.souza@mottu.com', 'HASHabcdefghij', 'ativo', 2);

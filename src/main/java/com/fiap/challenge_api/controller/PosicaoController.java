@@ -40,17 +40,17 @@ public class PosicaoController {
     }
 
     @Operation(summary = "Buscar histórico de posições da moto",
-            description = "Retorna o histórico completo de posições associadas a uma moto específica")
+            description = "Retorna o histórico completo de posições associadas a uma moto específica de maneira ordenada (DESC)")
     @GetMapping("/historico/{motoId}")
     public ResponseEntity<List<PosicaoDTO>> buscarHistoricoDaMoto(@PathVariable Long motoId) {
         return ResponseEntity.ok(service.buscarHistoricoDaMoto(motoId));
     }
 
-    @Operation(summary = "Listar posições de motos indisponíveis",
-            description = "Retorna todas as posições em que há motos marcadas como indisponíveis")
-    @GetMapping("/indisponiveis")
-    public ResponseEntity<List<PosicaoDTO>> findPosicoesDeMotosIndisponiveis() {
-        return ResponseEntity.ok(service.findPosicoesDeMotosIndisponiveis());
+    @Operation(summary = "Listar posições de motos em Revisão",
+            description = "Retorna todas as posições em que há motos marcadas como Revisão")
+    @GetMapping("/revisao")
+    public ResponseEntity<List<PosicaoDTO>> findPosicoesDeMotosRevisao() {
+        return ResponseEntity.ok(service.findPosicoesDeMotosRevisao());
     }
 
     @Operation(summary = "Cadastrar nova posição",
@@ -70,7 +70,7 @@ public class PosicaoController {
     @Operation(summary = "Excluir posição",
             description = "Remove uma posição do sistema com base no ID informado")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id, @RequestBody @Valid PosicaoDTO dto){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,5 +1,6 @@
 package com.fiap.challenge_api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.boot.convert.DataSizeUnit;
 
@@ -13,7 +14,9 @@ public class PosicaoDTO {
     private Long idPosicao;
     private Float xPos;
     private Float yPos;
+
     private LocalDateTime dataHora;
+
     private Long idMoto;
     private Long idPatio;
 
@@ -49,19 +52,19 @@ public class PosicaoDTO {
         this.dataHora = dataHora;
     }
 
-    public Float getyPos() {
+    public Float getYPos() {
         return yPos;
     }
 
-    public void setyPos(Float yPos) {
+    public void setYPos(Float yPos) {
         this.yPos = yPos;
     }
 
-    public Float getxPos() {
+    public Float getXPos() {
         return xPos;
     }
 
-    public void setxPos(Float xPos) {
+    public void setXPos(Float xPos) {
         this.xPos = xPos;
     }
 }
