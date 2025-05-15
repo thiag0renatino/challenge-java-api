@@ -9,5 +9,5 @@ public interface MarcadorArucoMovelRepository extends JpaRepository<MarcadorAruc
 
     Optional<MarcadorArucoMovel> findByMoto_IdMoto(Long motoId);
 
-    Optional<MarcadorArucoMovel> findByCodigoAruco(String codigoAruco);
+    Optional<MarcadorArucoMovel> findByCodigoArucoIgnoreCase(String codigoAruco);
 }

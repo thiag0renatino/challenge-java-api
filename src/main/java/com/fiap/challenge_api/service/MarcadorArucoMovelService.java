@@ -42,7 +42,7 @@ public class MarcadorArucoMovelService {
     }
 
     public MarcadorArucoMovelDTO findByCodigoAruco(String codigo) {
-        return repository.findByCodigoAruco(codigo)
+        return repository.findByCodigoArucoIgnoreCase(codigo)
                 .map(mapper::toDTO)
                 .orElseThrow(() -> new MarcadorNotFoundException(codigo));
     }
