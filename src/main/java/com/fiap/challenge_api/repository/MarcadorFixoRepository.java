@@ -10,5 +10,5 @@ public interface MarcadorFixoRepository extends JpaRepository<MarcadorFixo, Long
 
     List<MarcadorFixo> findByPatioIdPatio(Long patioId);
 
-    Optional<MarcadorFixo> findByCodigoAruco(String codigoAruco);
+    Optional<MarcadorFixo> findByCodigoArucoIgnoreCase(String codigoAruco);
 }

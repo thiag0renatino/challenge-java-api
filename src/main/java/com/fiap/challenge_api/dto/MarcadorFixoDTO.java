@@ -29,11 +29,11 @@ public class MarcadorFixoDTO {
         this.codigoAruco = codigoAruco;
     }
 
-    public Float getxPos() {
+    public Float getXPos() {
         return xPos;
     }
 
-    public void setxPos(Float xPos) {
+    public void setXPos(Float xPos) {
         this.xPos = xPos;
     }
 
@@ -45,11 +45,11 @@ public class MarcadorFixoDTO {
         this.idPatio = idPatio;
     }
 
-    public Float getyPos() {
+    public Float getYPos() {
         return yPos;
     }
 
-    public void setyPos(Float yPos) {
+    public void setYPos(Float yPos) {
         this.yPos = yPos;
     }
 }

@@ -55,6 +55,7 @@ public class MedicaoPosicaoService {
         return mapper.toDTO(repository.save(medicaoPosicao));
     }
 
+    @CacheEvict(value = "medicoes", allEntries = true)
     public void delete(Long id){
         MedicaoPosicao medicaoPosicao = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
