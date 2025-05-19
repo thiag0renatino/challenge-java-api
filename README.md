@@ -4,7 +4,7 @@
 
 ---
 
-## 📖 Descrição do Projeto
+##  Descrição do Projeto
 
 A ausência de um sistema automatizado de mapeamento e localização das motos compromete a agilidade da operação nos pátios da empresa MOTTU e aumenta o risco de falhas humanas.
 
@@ -20,34 +20,42 @@ Público-alvo: Funcionários responsáveis pela gestão de pátios da MOTTU
 
 A API será consumida por uma aplicação móvel voltada aos operadores dos pátios, que permitirá:
 
-Visualização de um mapa digital com as posições em tempo real das motos;
+- Visualização de um mapa digital com as posições em tempo real das motos;
 
-Consulta interativa: ao clicar sobre uma moto no mapa, o app exibe suas informações detalhadas (placa, modelo, status, histórico de localização etc.).
+- Consulta interativa: ao clicar sobre uma moto no mapa, o app exibe suas informações detalhadas (placa, modelo, status, histórico de localização etc.).
 
 ---
 
-## 🚀 Tecnologias e Ferramentas Utilizadas
+## Tecnologias e Ferramentas Utilizadas
 
 - Java 17
-- Spring Boot 3.x
-- Spring Data JPA
-- H2 (dev) e Oracle (produção)
-- MapStruct
-- Swagger / OpenAPI
+- Spring Boot 3
 - Maven
+### Módulos Spring Utilizados
+- `Spring Web` – construção da API RESTful  
+- `Spring Data JPA` – persistência de dados com ORM  
+- `Spring Validation` – validação de dados de entrada  
+- `Spring Cache` – melhoria de performance com cache de dados
+- `MapStruct` – mapeamento automático entre entidades e DTOs
+### Persistência de Dados
+- **H2 Database** – ambiente de desenvolvimento  
+- **Oracle Database** – ambiente de produção
+### Documentação e Testes da API
+- **Swagger / OpenAPI** – documentação da API  
+- **Swagger UI** – testes via interface interativa
+- **Postman** – testes manuais das requisições  
 
 ---
 
-## ⚙️ Pré-requisitos
+## Pré-requisitos
 
 - Java 17+
 - Maven 3.8+
-- (Opcional) Docker
 - IDE (IntelliJ, Eclipse ou VS Code)
 
 ---
 
-## 🛠️ Como Executar
+## Como Executar
 
 ```bash
 # Clone o repositório
@@ -62,18 +70,18 @@ mvn spring-boot:run
 ```
 
 A API estará disponível em:  
-🔗 `http://localhost:8080`
+ `http://localhost:8080`
 
 ---
 
-## 🔍 Documentação da API
+## Documentação da API
 
 Disponível via Swagger:  
-📄 [`http://localhost:8080/swagger-ui/index.html`](http://localhost:8080/swagger-ui/index.html)
+ [`http://localhost:8080/swagger-ui/index.html`](http://localhost:8080/swagger-ui/index.html)
 
 ---
 
-## 📐 Principais Entidades
+## Principais Entidades
 
 | Entidade           | Descrição                                                                |
 |--------------------|--------------------------------------------------------------------------|
@@ -87,7 +95,7 @@ Disponível via Swagger:
 
 ---
 
-## 📡 Endpoints da API
+## Endpoints da API
 
 ### `/motos`
 - `GET /motos`
@@ -154,7 +162,7 @@ Disponível via Swagger:
 
 ---
 
-## 🧪 Banco de Dados
+## Banco de Dados
 
 - H2 em memória (dev)
 - Oracle (produção)
@@ -162,7 +170,7 @@ Disponível via Swagger:
 
 ---
 
-## 👨‍💻 Autores
+## Alunos
 
 - Thiago Renatino Paulino — RM556934  
 - Cauan Matos Moura — RM558821  
@@ -170,6 +178,6 @@ Disponível via Swagger:
 
 ---
 
-## 📄 Licença
+## Licença
 
 Projeto acadêmico
