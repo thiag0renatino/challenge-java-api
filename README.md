@@ -110,6 +110,7 @@ Disponível via Swagger:
 ### `/posicoes`
 - `GET /posicoes`
 - `GET /posicoes/moto/{motoId}`
+- `GET /posicoes/{id}/moto`
 - `GET /posicoes/ultimas`
 - `GET /posicoes/historico/{motoId}`
 - `GET /posicoes/revisao`
