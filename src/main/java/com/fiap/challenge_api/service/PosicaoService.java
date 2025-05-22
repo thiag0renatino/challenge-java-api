@@ -1,7 +1,10 @@
 package com.fiap.challenge_api.service;
 
+import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.dto.PosicaoDTO;
+import com.fiap.challenge_api.mapper.MotoMapper;
 import com.fiap.challenge_api.mapper.PosicaoMapper;
+import com.fiap.challenge_api.model.Moto;
 import com.fiap.challenge_api.model.Posicao;
 import com.fiap.challenge_api.repository.MotoRepository;
 import com.fiap.challenge_api.repository.PatioRepository;
@@ -28,6 +31,9 @@ public class PosicaoService {
 
     @Autowired
     private PosicaoMapper mapper;
+
+    @Autowired
+    private MotoMapper motoMapper;
 
     @Cacheable("posicoes")
     public List<PosicaoDTO> findAll(){
@@ -70,6 +76,14 @@ public class PosicaoService {
                 .stream()
                 .map(mapper::toDTO)
                 .toList();
+    }
+
+    public MotoDTO buscarMotoPorIdPosicao(Long posicaoId) {
+        Posicao posicao = repository.findById(posicaoId)
+                .orElseThrow(() -> new ResourceNotFoundException(posicaoId));
+
+        Moto moto = posicao.getMoto();
+        return motoMapper.toDTO(moto);
     }
 
     @CacheEvict(value = "posicoes", allEntries = true)
