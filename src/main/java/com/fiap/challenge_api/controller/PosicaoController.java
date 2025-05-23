@@ -2,6 +2,7 @@ package com.fiap.challenge_api.controller;
 
 import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.dto.PosicaoDTO;
+import com.fiap.challenge_api.dto.PosicaoResponseDTO;
 import com.fiap.challenge_api.service.PosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -22,7 +23,7 @@ public class PosicaoController {
     @Operation(summary = "Listar todas as posições",
             description = "Retorna uma lista com todas as posições registradas")
     @GetMapping
-    public ResponseEntity<List<PosicaoDTO>> findAll(){
+    public ResponseEntity<List<PosicaoResponseDTO>> findAll(){
         return ResponseEntity.ok(service.findAll());
     }
 
@@ -44,21 +45,21 @@ public class PosicaoController {
     @Operation(summary = "Listar as 10 últimas posições registradas",
             description = "Retorna as últimas 10 posições ordenadas pela data/hora de registro")
     @GetMapping("/ultimas")
-    public ResponseEntity<List<PosicaoDTO>> findTop10ByOrderByDataHoraDesc() {
+    public ResponseEntity<List<PosicaoResponseDTO>> findTop10ByOrderByDataHoraDesc() {
         return ResponseEntity.ok(service.findTop10ByOrderByDataHoraDesc());
     }
 
     @Operation(summary = "Buscar histórico de posições da moto",
             description = "Retorna o histórico completo de posições associadas a uma moto específica de maneira ordenada (DESC)")
     @GetMapping("/historico/{motoId}")
-    public ResponseEntity<List<PosicaoDTO>> buscarHistoricoDaMoto(@PathVariable Long motoId) {
+    public ResponseEntity<List<PosicaoResponseDTO>> buscarHistoricoDaMoto(@PathVariable Long motoId) {
         return ResponseEntity.ok(service.buscarHistoricoDaMoto(motoId));
     }
 
     @Operation(summary = "Listar posições de motos em Revisão",
             description = "Retorna todas as posições em que há motos marcadas como Revisão")
     @GetMapping("/revisao")
-    public ResponseEntity<List<PosicaoDTO>> findPosicoesDeMotosRevisao() {
+    public ResponseEntity<List<PosicaoResponseDTO>> findPosicoesDeMotosRevisao() {
         return ResponseEntity.ok(service.findPosicoesDeMotosRevisao());
     }
 

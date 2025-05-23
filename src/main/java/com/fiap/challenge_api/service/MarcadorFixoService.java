@@ -1,6 +1,7 @@
 package com.fiap.challenge_api.service;
 
 import com.fiap.challenge_api.dto.MarcadorFixoDTO;
+import com.fiap.challenge_api.dto.MarcadorFixoResponseDTO;
 import com.fiap.challenge_api.mapper.MarcadorFixoMapper;
 import com.fiap.challenge_api.model.MarcadorFixo;
 import com.fiap.challenge_api.repository.MarcadorFixoRepository;
@@ -20,24 +21,24 @@ public class MarcadorFixoService {
     @Autowired
     private MarcadorFixoMapper mapper;
 
-    public List<MarcadorFixoDTO> findAll(){
+    public List<MarcadorFixoResponseDTO> findAll(){
         return repository.findAll()
                 .stream()
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .toList();
     }
 
-    public List<MarcadorFixoDTO> findByPatioId(Long patioId) {
+    public List<MarcadorFixoResponseDTO> findByPatioId(Long patioId) {
         return repository.findByPatioIdPatio(patioId)
                 .stream()
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .toList();
     }
 
-    public MarcadorFixoDTO findByCodigoAruco(String codigoAruco) {
+    public MarcadorFixoResponseDTO findByCodigoAruco(String codigoAruco) {
         MarcadorFixo marcador = repository.findByCodigoArucoIgnoreCase(codigoAruco)
                 .orElseThrow(() -> new MarcadorNotFoundException(codigoAruco));
-        return mapper.toDTO(marcador);
+        return mapper.toResponseDTO(marcador);
     }
 
     public MarcadorFixoDTO insert(MarcadorFixoDTO dto){

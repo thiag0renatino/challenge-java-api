@@ -2,6 +2,7 @@ package com.fiap.challenge_api.service;
 
 import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.dto.PosicaoDTO;
+import com.fiap.challenge_api.dto.PosicaoResponseDTO;
 import com.fiap.challenge_api.mapper.MotoMapper;
 import com.fiap.challenge_api.mapper.PosicaoMapper;
 import com.fiap.challenge_api.model.Moto;
@@ -36,10 +37,10 @@ public class PosicaoService {
     private MotoMapper motoMapper;
 
     @Cacheable("posicoes")
-    public List<PosicaoDTO> findAll(){
+    public List<PosicaoResponseDTO> findAll(){
         return repository.findAll()
                 .stream()
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .toList();
     }
 
@@ -50,24 +51,24 @@ public class PosicaoService {
                 .toList();
     }
 
-    public List<PosicaoDTO> findTop10ByOrderByDataHoraDesc() {
+    public List<PosicaoResponseDTO> findTop10ByOrderByDataHoraDesc() {
         return repository.findTop10ByOrderByDataHoraDesc()
                 .stream()
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .toList();
     }
 
-    public List<PosicaoDTO> buscarHistoricoDaMoto(Long motoId) {
+    public List<PosicaoResponseDTO> buscarHistoricoDaMoto(Long motoId) {
         return repository.buscarHistoricoDaMoto(motoId)
                 .stream()
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .toList();
     }
 
-    public List<PosicaoDTO> findPosicoesDeMotosRevisao() {
+    public List<PosicaoResponseDTO> findPosicoesDeMotosRevisao() {
         return repository.findPosicoesDeMotosRevisao()
                 .stream()
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .toList();
     }
 

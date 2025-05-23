@@ -1,6 +1,7 @@
 package com.fiap.challenge_api.mapper;
 
 import com.fiap.challenge_api.dto.PosicaoDTO;
+import com.fiap.challenge_api.dto.PosicaoResponseDTO;
 import com.fiap.challenge_api.model.Posicao;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,5 +21,9 @@ public interface PosicaoMapper {
             @Mapping(source = "idPatio", target = "patio.idPatio")
     })
     Posicao toEntity(PosicaoDTO dto);
+
+    @Mapping(source = "moto", target = "moto")
+    @Mapping(source = "patio", target = "patio")
+    PosicaoResponseDTO toResponseDTO(Posicao posicao);
 
 }
