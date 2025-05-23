@@ -1,6 +1,7 @@
 package com.fiap.challenge_api.mapper;
 
 import com.fiap.challenge_api.dto.MarcadorArucoMovelDTO;
+import com.fiap.challenge_api.dto.MarcadorArucoMovelResponseDTO;
 import com.fiap.challenge_api.model.MarcadorArucoMovel;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -21,5 +22,8 @@ public interface MarcadorArucoMovelMapper {
             @Mapping(source = "idMoto", target = "moto.idMoto")
     })
     MarcadorArucoMovel toEntity(MarcadorArucoMovelDTO dto);
+
+    @Mapping(source = "moto", target = "moto")
+    MarcadorArucoMovelResponseDTO toResponseDTO(MarcadorArucoMovel entity);
 
 }
