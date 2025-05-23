@@ -1,6 +1,7 @@
 package com.fiap.challenge_api.service;
 
 import com.fiap.challenge_api.dto.MarcadorArucoMovelDTO;
+import com.fiap.challenge_api.dto.MarcadorArucoMovelResponseDTO;
 import com.fiap.challenge_api.mapper.MarcadorArucoMovelMapper;
 import com.fiap.challenge_api.model.MarcadorArucoMovel;
 import com.fiap.challenge_api.model.Moto;
@@ -22,28 +23,28 @@ public class MarcadorArucoMovelService {
     @Autowired
     private MarcadorArucoMovelMapper mapper;
 
-    public List<MarcadorArucoMovelDTO> findAll(){
+    public List<MarcadorArucoMovelResponseDTO> findAll(){
         return repository.findAll()
                 .stream()
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .toList();
     }
 
-    public MarcadorArucoMovelDTO findById(Long id){
+    public MarcadorArucoMovelResponseDTO findById(Long id){
         return repository.findById(id)
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public MarcadorArucoMovelDTO findByMotoId(Long motoId) {
+    public MarcadorArucoMovelResponseDTO findByMotoId(Long motoId) {
         return repository.findByMoto_IdMoto(motoId)
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .orElseThrow(() -> new ResourceNotFoundException(motoId));
     }
 
-    public MarcadorArucoMovelDTO findByCodigoAruco(String codigo) {
+    public MarcadorArucoMovelResponseDTO findByCodigoAruco(String codigo) {
         return repository.findByCodigoArucoIgnoreCase(codigo)
-                .map(mapper::toDTO)
+                .map(mapper::toResponseDTO)
                 .orElseThrow(() -> new MarcadorNotFoundException(codigo));
     }
 
