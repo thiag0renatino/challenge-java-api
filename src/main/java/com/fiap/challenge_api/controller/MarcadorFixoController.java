@@ -1,6 +1,7 @@
 package com.fiap.challenge_api.controller;
 
 import com.fiap.challenge_api.dto.MarcadorFixoDTO;
+import com.fiap.challenge_api.dto.MarcadorFixoResponseDTO;
 import com.fiap.challenge_api.service.MarcadorFixoService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -21,21 +22,21 @@ public class MarcadorFixoController {
     @Operation(summary = "Listar todos os marcadores fixos",
             description = "Retorna uma lista com todos os marcadores ArUco fixos cadastrados")
     @GetMapping
-    public ResponseEntity<List<MarcadorFixoDTO>> findALl(){
+    public ResponseEntity<List<MarcadorFixoResponseDTO>> findALl(){
         return ResponseEntity.ok(service.findAll());
     }
 
     @Operation(summary = "Listar marcadores fixos por pátio",
             description = "Retorna todos os marcadores fixos associados a um pátio específico")
     @GetMapping("/por-patio/{patioId}")
-    public ResponseEntity<List<MarcadorFixoDTO>> findByPatioId(@PathVariable Long patioId) {
+    public ResponseEntity<List<MarcadorFixoResponseDTO>> findByPatioId(@PathVariable Long patioId) {
         return ResponseEntity.ok(service.findByPatioId(patioId));
     }
 
     @Operation(summary = "Buscar marcador fixo por código ArUco",
             description = "Retorna um marcador fixo a partir do código ArUco fornecido")
     @GetMapping("/por-codigo")
-    public ResponseEntity<MarcadorFixoDTO> findByCodigoAruco(@RequestParam String codigoAruco) {
+    public ResponseEntity<MarcadorFixoResponseDTO> findByCodigoAruco(@RequestParam String codigoAruco) {
         return ResponseEntity.ok(service.findByCodigoAruco(codigoAruco));
     }
 

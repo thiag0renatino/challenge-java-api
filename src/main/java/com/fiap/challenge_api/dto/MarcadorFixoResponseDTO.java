@@ -1,10 +1,12 @@
 package com.fiap.challenge_api.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonPropertyOrder({"idMarcadorArucoFixo", "codigoAruco", "xpos", "ypos","patio"})
 public class MarcadorFixoResponseDTO {
 
     private Long idMarcadorArucoFixo;
