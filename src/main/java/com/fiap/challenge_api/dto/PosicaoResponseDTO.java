@@ -1,5 +1,6 @@
 package com.fiap.challenge_api.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -7,6 +8,7 @@ import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonPropertyOrder({ "idPosicao", "xpos", "ypos", "dataHora", "moto", "patio" })
 public class PosicaoResponseDTO {
 
     private Long idPosicao;
