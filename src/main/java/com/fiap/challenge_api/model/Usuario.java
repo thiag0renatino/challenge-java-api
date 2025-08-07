@@ -1,6 +1,9 @@
 package com.fiap.challenge_api.model;
 
+import com.fiap.challenge_api.enuns.TipoUsuario;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @Entity
@@ -12,15 +15,21 @@ public class Usuario {
     @Id
     private Long idUsuario;
 
+    @Email
     @Column(nullable = false, unique = true, length = 100)
     private String email;
 
     @Column(nullable = false, length = 100)
     private String nome;
 
+    @NotBlank
     private String senha;
 
     private String status = "ativo";
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private TipoUsuario tipo;
 
     @ManyToOne
     @JoinColumn(name = "patio_id_patio")
