@@ -1,9 +1,11 @@
 package com.fiap.challenge_api.controller;
 
+import com.fiap.challenge_api.config.SecurityConfig;
 import com.fiap.challenge_api.dto.MarcadorFixoDTO;
 import com.fiap.challenge_api.dto.MarcadorFixoResponseDTO;
 import com.fiap.challenge_api.service.MarcadorFixoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/marcadores-fixos")
+@SecurityRequirement(name = SecurityConfig.SECURITY)
 public class MarcadorFixoController {
 
     @Autowired

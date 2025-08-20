@@ -1,10 +1,12 @@
 package com.fiap.challenge_api.controller;
 
+import com.fiap.challenge_api.config.SecurityConfig;
 import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.dto.PosicaoDTO;
 import com.fiap.challenge_api.service.MotoService;
 import com.fiap.challenge_api.service.PosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,6 +19,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/motos")
+@SecurityRequirement(name = SecurityConfig.SECURITY)
 public class MotoController {
 
     @Autowired

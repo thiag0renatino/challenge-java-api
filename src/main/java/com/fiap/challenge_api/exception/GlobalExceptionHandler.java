@@ -1,9 +1,6 @@
 package com.fiap.challenge_api.exception;
 
-import com.fiap.challenge_api.service.exception.EmailNotFoundException;
-import com.fiap.challenge_api.service.exception.MarcadorNotFoundException;
-import com.fiap.challenge_api.service.exception.PlacaInvalidaException;
-import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
+import com.fiap.challenge_api.service.exception.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -21,6 +18,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(PlacaInvalidaException.class)
     public ResponseEntity<String> handlePlacaInvalidaException(PlacaInvalidaException e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public ResponseEntity<String> handleInvalidJwtAuthenticationException(InvalidJwtAuthenticationException e){
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
     }
 
     @ExceptionHandler(MarcadorNotFoundException.class)

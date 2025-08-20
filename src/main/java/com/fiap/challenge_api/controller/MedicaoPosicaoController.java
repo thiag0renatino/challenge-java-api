@@ -1,8 +1,10 @@
 package com.fiap.challenge_api.controller;
 
+import com.fiap.challenge_api.config.SecurityConfig;
 import com.fiap.challenge_api.dto.MedicaoPosicaoDTO;
 import com.fiap.challenge_api.service.MedicaoPosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/medicoes")
+@SecurityRequirement(name = SecurityConfig.SECURITY)
 public class MedicaoPosicaoController {
 
     @Autowired
