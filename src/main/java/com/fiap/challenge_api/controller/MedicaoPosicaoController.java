@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/medicoes")
+@RequestMapping("/api/medicoes")
 @SecurityRequirement(name = SecurityConfig.SECURITY)
 public class MedicaoPosicaoController {
 

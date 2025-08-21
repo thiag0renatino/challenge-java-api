@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/patios")
+@RequestMapping("/api/patios")
 @SecurityRequirement(name = SecurityConfig.SECURITY)
 public class PatioController {
 

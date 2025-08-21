@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/marcadores-moveis")
+@RequestMapping("/api/marcadores-moveis")
 @SecurityRequirement(name = SecurityConfig.SECURITY)
 public class MarcadorArucoMovelController {
 

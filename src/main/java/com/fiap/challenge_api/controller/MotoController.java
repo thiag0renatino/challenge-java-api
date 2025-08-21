@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/motos")
+@RequestMapping("/api/motos")
 @SecurityRequirement(name = SecurityConfig.SECURITY)
 public class MotoController {
 

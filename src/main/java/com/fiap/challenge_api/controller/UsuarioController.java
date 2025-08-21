@@ -16,7 +16,7 @@ import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/usuarios")
+@RequestMapping("/api/usuarios")
 @SecurityRequirement(name = SecurityConfig.SECURITY)
 public class UsuarioController {
 

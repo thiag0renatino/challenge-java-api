@@ -7,12 +7,14 @@ import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
@@ -29,6 +31,9 @@ public class SecurityConfig {
 
     @Autowired
     private JwtTokenProvider tokenProvider;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     public static final String SECURITY = "bearerAuth";
 
@@ -52,10 +57,19 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Order(1)
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         JwtTokenFilter filter = new JwtTokenFilter(tokenProvider);
         // @formatter:off
         return httpSecurity
+                .securityMatcher(
+                        "/auth/**",
+                        "/usuarios/**",
+                        "/v3/api-docs/**",
+                        "/swagger-ui/**",
+                        "/swagger-ui.html",
+                        "/api/**"
+                )
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
@@ -63,14 +77,52 @@ public class SecurityConfig {
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/auth/signIn","/auth/register",
-                                "/auth/refresh/**", "/swagger-ui/**","/v3/api-docs/**").permitAll()
-                        .requestMatchers("/usuarios/por-email", "/usuarios/atualizar-senha").authenticated()
-                        .requestMatchers("/usuarios/**").hasRole("ADMIN")
-                        .requestMatchers("/**").authenticated()
+                        .requestMatchers(
+                                "/auth/signIn","/auth/register",
+                                "/auth/refresh/**", "/swagger-ui/**",
+                                "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/usuarios/por-email", "/api/usuarios/atualizar-senha").authenticated()
+                        .requestMatchers("/api/usuarios/**").hasRole("ADMIN")
+                        .anyRequest().authenticated()
                 )
                 .cors(cors -> {})
                 .build();
         // @formatter:on
+    }
+
+    @Bean
+    @Order(2)
+    SecurityFilterChain webSecurityFilterChain(HttpSecurity http) throws Exception {
+        return http
+                .securityMatcher("/web/**")
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/web/login", "/web/register",
+                                "/css/**", "/js/**", "/images/**",
+                                "/error", "/error/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                )
+                .formLogin(fl -> fl
+                        .loginPage("/web/login")
+                        .loginProcessingUrl("/web/login")
+                        .usernameParameter("email")
+                        .passwordParameter("senha")
+                        .defaultSuccessUrl("/web/", true)
+                        .failureUrl("/web/login?error")
+                        .permitAll()
+                )
+                .logout(lo -> lo
+                        .logoutUrl("/web/logout")
+                        .logoutSuccessUrl("/web/login?logout")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                )
+                .rememberMe(rm -> rm
+                        .userDetailsService(userDetailsService)
+                        .tokenValiditySeconds(60 * 60 * 24 * 7)
+                )
+                .build();
     }
 }

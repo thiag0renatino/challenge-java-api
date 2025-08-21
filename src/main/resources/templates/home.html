@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR"
+      xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/_layout :: body(~{::section}, ~{::title})}">
+<head>
+    <title>Início</title>
+</head>
+<body>
+<section class="home-hero py-5">
+    <h1>MottuPatio</h1>
+    <p class="lead">Bem-vindo! Use o menu para navegar.</p>
+
+    <div class="mt-4 d-flex gap-2">
+        <a th:href="@{/web/motos}"  class="btn btn-primary">Motos</a>
+        <a th:href="@{/web/patios}" class="btn btn-outline-primary">Pátios</a>
+        <a th:href="@{/web/posicoes}" class="btn btn-outline-primary">Posições</a>
+    </div>
+
+</section>
+</body>
+</html>

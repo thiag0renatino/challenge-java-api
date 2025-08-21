@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/_layout :: body(~{::section}, ~{::title})}">
+<head><title>Motos</title></head>
+<body>
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="mb-0">Motos</h2>
+        <a th:href="@{/web/motos/new}" class="btn btn-primary">Nova Moto</a>
+    </div>
+
+    <div th:if="${msg}" class="alert alert-success" th:text="${msg}"></div>
+
+    <div class="table-responsive">
+        <table class="table table-striped align-middle">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Placa</th>
+                <th>Modelo</th>
+                <th>Status</th>
+                <th>Cadastro</th>
+                <th class="text-end">Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="m : ${motos}">
+                <td th:text="${m.idMoto}">1</td>
+                <td>
+                    <a th:href="@{'/web/motos/' + ${m.idMoto}}" th:text="${m.placa}">ABC-1234</a>
+                </td>
+                <td th:text="${m.modelo}">Honda</td>
+                <td th:text="${m.status}">ATIVA</td>
+                <td th:text="${m.dataCadastro != null ? #temporals.format(m.dataCadastro,'dd/MM/yyyy') : '-'}">01/01/2025</td>
+                <td class="text-end">
+                    <a class="btn btn-sm btn-outline-secondary"
+                       th:href="@{'/web/motos/' + ${m.idMoto} + '/edit'}">Editar</a>
+                    <form th:action="@{'/web/motos/' + ${m.idMoto} + '/delete'}" method="post" class="d-inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn btn-sm btn-outline-danger"
+                                onclick="return confirm('Confirma exclusão?')">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(motos)}">
+                <td colspan="6" class="text-center text-muted">Nenhuma moto cadastrada.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+</body>
+</html>

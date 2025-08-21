@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/marcadores-fixos")
+@RequestMapping("/api/marcadores-fixos")
 @SecurityRequirement(name = SecurityConfig.SECURITY)
 public class MarcadorFixoController {
 
