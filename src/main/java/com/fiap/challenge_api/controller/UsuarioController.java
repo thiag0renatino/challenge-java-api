@@ -1,7 +1,9 @@
 package com.fiap.challenge_api.controller;
 
 import com.fiap.challenge_api.config.SecurityConfig;
+import com.fiap.challenge_api.dto.AtualizarSenhaRequestDTO;
 import com.fiap.challenge_api.dto.UsuarioDTO;
+import com.fiap.challenge_api.service.AuthService;
 import com.fiap.challenge_api.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -10,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -18,7 +21,10 @@ import java.util.List;
 public class UsuarioController {
 
     @Autowired
-    UsuarioService service;
+    private UsuarioService service;
+
+    @Autowired
+    private AuthService authService;
 
     @Operation(summary = "Listar todos os usuários",
             description = "Retorna uma lista com todos os usuários cadastrados")
@@ -39,6 +45,14 @@ public class UsuarioController {
     @GetMapping("/por-email")
     public ResponseEntity<UsuarioDTO> findByEmail(@RequestParam String email) {
         return ResponseEntity.ok(service.findByEmail(email));
+    }
+
+    @Operation(summary = "Atualiza senha do usuário",
+            description = "Atualiza a senha de um usuário ao passar a antiga corretamente")
+    @PatchMapping("/atualizar-senha")
+    public ResponseEntity<Void> atualizarSenha(@RequestBody @Valid AtualizarSenhaRequestDTO dto, Principal connectedUser) {
+        authService.changePassword(dto, connectedUser);
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(summary = "Atualizar usuário",

@@ -44,7 +44,7 @@ public class UsuarioService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         return repository.findByEmailIgnoreCase(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Email Not found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Email não encontrado"));
     }
 
     public UsuarioDTO findByEmail(String email) {

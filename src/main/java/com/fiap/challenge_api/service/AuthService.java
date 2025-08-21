@@ -1,5 +1,6 @@
 package com.fiap.challenge_api.service;
 
+import com.fiap.challenge_api.dto.AtualizarSenhaRequestDTO;
 import com.fiap.challenge_api.dto.CredencialContaDTO;
 import com.fiap.challenge_api.dto.SignInDTO;
 import com.fiap.challenge_api.dto.TokenDTO;
@@ -12,6 +13,7 @@ import com.fiap.challenge_api.security.jwt.JwtTokenProvider;
 import com.fiap.challenge_api.service.exception.EmailNotFoundException;
 import com.fiap.challenge_api.service.exception.InvalidJwtAuthenticationException;
 import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.security.Principal;
 
 @Service
 public class AuthService {
@@ -91,5 +95,19 @@ public class AuthService {
             throw new InvalidJwtAuthenticationException("Token não pertence ao email informado");
         }
         return ResponseEntity.ok(tokens);
+    }
+
+    @Transactional
+    public void changePassword(AtualizarSenhaRequestDTO dto, Principal connectedUser) {
+        var usuario = (Usuario) ((UsernamePasswordAuthenticationToken) connectedUser).getPrincipal();
+
+        if (!passwordEncoder.matches(dto.getSenhaAntiga(), usuario.getSenha()))
+            throw new IllegalArgumentException("Senha antiga incorreta");
+
+        if (passwordEncoder.matches(dto.getSenhaNova(), usuario.getSenha()))
+            throw new IllegalArgumentException("Nova senha não pode ser igual à atual");
+
+        usuario.setSenha(passwordEncoder.encode(dto.getSenhaNova()));
+        repository.save(usuario);
     }
 }
