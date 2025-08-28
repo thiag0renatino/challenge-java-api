@@ -1,9 +1,6 @@
 package com.fiap.challenge_api.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -17,6 +14,12 @@ import java.util.List;
 public class Moto {
 
     @Id
+    @SequenceGenerator(
+            name = "moto_seq_gen",
+            sequenceName = "SEQ_MOTO_CH",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moto_seq_gen")
     private Long idMoto;
 
     private String placa;

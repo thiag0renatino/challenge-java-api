@@ -23,14 +23,7 @@ public class MotoService {
     @Autowired
     private MotoMapper mapper;
 
-    public List<MotoDTO> findAll(){
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDTO)
-                .toList();
-    }
-
-    public Page<MotoDTO> findAllPage(Pageable pageable) {
+    public Page<MotoDTO> findAll(Pageable pageable) {
         return repository.findAll(pageable)
                 .map(mapper::toDTO);
     }

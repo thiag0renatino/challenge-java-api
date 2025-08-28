@@ -3,6 +3,10 @@ package com.fiap.challenge_api.controller.web;
 import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.service.MotoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @Controller
 @RequestMapping("/web/motos")
@@ -18,13 +23,38 @@ public class MotoWebController {
     @Autowired
     private MotoService motoService;
 
+    // Tela incial motos (findAll)
     @GetMapping
-    public String list(Model model) {
-        List<MotoDTO> motos = motoService.findAll();
+    public String list(@RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "10") int size,
+                       @RequestParam(defaultValue = "idMoto") String sort,
+                       @RequestParam(defaultValue = "DESC") String dir,
+                       Model model) {
+
+        Sort.Direction direction = Sort.Direction.fromString(dir);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort));
+        Page<MotoDTO> pageMotos = motoService.findAll(pageable);
+
+        // conteúdo da página
+        List<MotoDTO> motos = pageMotos.getContent();
+
+        // números das páginas para o paginator
+        List<Integer> pageNumbers = IntStream
+                .range(0, pageMotos.getTotalPages())
+                .boxed()
+                .toList();
+
         model.addAttribute("motos", motos);
+        model.addAttribute("page", pageMotos);          // objeto Page para acessar metadados
+        model.addAttribute("pageNumbers", pageNumbers); // 0..totalPages-1
+        model.addAttribute("sort", sort);
+        model.addAttribute("dir", dir);
+        model.addAttribute("size", size);
+
         return "web/motos/list";
     }
 
+    // Create
     @GetMapping("/new")
     public String createForm(Model model) {
         MotoDTO form = new MotoDTO();
@@ -37,12 +67,12 @@ public class MotoWebController {
     @PostMapping
     public String create(@ModelAttribute("form") MotoDTO form,
                          RedirectAttributes ra, Model model) {
-        // regra de negócio/validação ficam na service
         MotoDTO created = motoService.insert(form);
         ra.addFlashAttribute("msg", "Moto criada com sucesso! ID #" + created.getIdMoto());
         return "redirect:/web/motos";
     }
 
+    // Update
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable("id") Long id, Model model) {
         MotoDTO form = motoService.findById(id);
@@ -60,6 +90,7 @@ public class MotoWebController {
         return "redirect:/web/motos";
     }
 
+    // Delete
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id, RedirectAttributes ra) {
         motoService.delete(id);
@@ -67,6 +98,7 @@ public class MotoWebController {
         return "redirect:/web/motos";
     }
 
+    // FindById
     @GetMapping("/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
         model.addAttribute("moto", motoService.findById(id));
