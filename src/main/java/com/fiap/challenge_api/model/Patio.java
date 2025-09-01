@@ -1,9 +1,6 @@
 package com.fiap.challenge_api.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
@@ -16,6 +13,12 @@ import java.util.List;
 public class Patio {
 
     @Id
+    @SequenceGenerator(
+            name = "moto_patio_gen",
+            sequenceName = "SEQ_PATIO_CH",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moto_patio_gen")
     private Long idPatio;
 
     private String nome;

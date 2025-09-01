@@ -6,6 +6,8 @@ import com.fiap.challenge_api.model.Patio;
 import com.fiap.challenge_api.repository.PatioRepository;
 import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,11 +21,9 @@ public class PatioService {
     @Autowired
     private PatioMapper mapper;
 
-    public List<PatioDTO> findAll(){
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDTO)
-                .toList();
+    public Page<PatioDTO> findAll(Pageable pageable){
+        return repository.findAll(pageable)
+                .map(mapper::toDTO);
     }
 
     public PatioDTO findById(Long id){

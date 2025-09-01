@@ -10,7 +10,12 @@ import com.fiap.challenge_api.service.PosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,17 +36,19 @@ public class PatioController {
     @Autowired
     private PosicaoService posicaoService;
 
-    @Operation(summary = "Listar todos os pátios",
-            description = "Retorna uma lista com todos os pátios cadastrados")
+    @Operation(summary = "Listar todos os pátios com paginação",
+            description = "Retorna uma lista paginada com todos os pátios cadastrados")
     @GetMapping
-    public ResponseEntity<List<PatioDTO>> findAll(){
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<Page<PatioDTO>> findAll(@ParameterObject
+                                                  @PageableDefault(page = 0, size = 20, sort = "idPatio", direction = Sort.Direction.DESC)
+                                                  Pageable pageable) {
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @Operation(summary = "Buscar pátio por ID",
             description = "Retorna um pátio específico com base no ID informado")
     @GetMapping("/{id}")
-    public ResponseEntity<PatioDTO> findById(@PathVariable Long id){
+    public ResponseEntity<PatioDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -71,21 +78,21 @@ public class PatioController {
     @Operation(summary = "Cadastrar novo pátio",
             description = "Cria um novo pátio no sistema com os dados fornecidos")
     @PostMapping
-    public ResponseEntity<PatioDTO> insert(@RequestBody @Valid PatioDTO dto){
+    public ResponseEntity<PatioDTO> insert(@RequestBody @Valid PatioDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
     @Operation(summary = "Atualizar pátio",
             description = "Atualiza os dados de um pátio existente com base no ID fornecido")
     @PutMapping("/{id}")
-    public ResponseEntity<PatioDTO> update(@PathVariable Long id, @RequestBody @Valid PatioDTO dto){
-        return ResponseEntity.ok(service.update(id,dto));
+    public ResponseEntity<PatioDTO> update(@PathVariable Long id, @RequestBody @Valid PatioDTO dto) {
+        return ResponseEntity.ok(service.update(id, dto));
     }
 
     @Operation(summary = "Excluir pátio",
             description = "Remove um pátio do sistema com base no ID informado")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

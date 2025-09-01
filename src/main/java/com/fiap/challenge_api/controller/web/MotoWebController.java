@@ -21,7 +21,7 @@ import java.util.stream.IntStream;
 public class MotoWebController {
 
     @Autowired
-    private MotoService motoService;
+    private MotoService service;
 
     // Tela incial motos (findAll)
     @GetMapping
@@ -33,7 +33,7 @@ public class MotoWebController {
 
         Sort.Direction direction = Sort.Direction.fromString(dir);
         Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sort));
-        Page<MotoDTO> pageMotos = motoService.findAll(pageable);
+        Page<MotoDTO> pageMotos = service.findAll(pageable);
 
         // conteúdo da página
         List<MotoDTO> motos = pageMotos.getContent();
@@ -45,8 +45,8 @@ public class MotoWebController {
                 .toList();
 
         model.addAttribute("motos", motos);
-        model.addAttribute("page", pageMotos);          // objeto Page para acessar metadados
-        model.addAttribute("pageNumbers", pageNumbers); // 0..totalPages-1
+        model.addAttribute("page", pageMotos);
+        model.addAttribute("pageNumbers", pageNumbers);
         model.addAttribute("sort", sort);
         model.addAttribute("dir", dir);
         model.addAttribute("size", size);
@@ -67,7 +67,7 @@ public class MotoWebController {
     @PostMapping
     public String create(@ModelAttribute("form") MotoDTO form,
                          RedirectAttributes ra, Model model) {
-        MotoDTO created = motoService.insert(form);
+        MotoDTO created = service.insert(form);
         ra.addFlashAttribute("msg", "Moto criada com sucesso! ID #" + created.getIdMoto());
         return "redirect:/web/motos";
     }
@@ -75,7 +75,7 @@ public class MotoWebController {
     // Update
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable("id") Long id, Model model) {
-        MotoDTO form = motoService.findById(id);
+        MotoDTO form = service.findById(id);
         model.addAttribute("form", form);
         model.addAttribute("mode", "edit");
         return "web/motos/form";
@@ -85,7 +85,7 @@ public class MotoWebController {
     public String update(@PathVariable("id") Long id,
                          @ModelAttribute("form") MotoDTO form,
                          RedirectAttributes ra) {
-        motoService.update(id, form);
+        service.update(id, form);
         ra.addFlashAttribute("msg", "Moto atualizada com sucesso!");
         return "redirect:/web/motos";
     }
@@ -93,7 +93,7 @@ public class MotoWebController {
     // Delete
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable("id") Long id, RedirectAttributes ra) {
-        motoService.delete(id);
+        service.delete(id);
         ra.addFlashAttribute("msg", "Moto removida.");
         return "redirect:/web/motos";
     }
@@ -101,7 +101,7 @@ public class MotoWebController {
     // FindById
     @GetMapping("/{id}")
     public String detail(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("moto", motoService.findById(id));
+        model.addAttribute("moto", service.findById(id));
         return "web/motos/detail";
     }
 }
