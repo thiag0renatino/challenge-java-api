@@ -22,6 +22,12 @@ main.container.my-4 {
   letter-spacing: .2px;
 }
 
+.navbar-brand:hover {
+    text-decoration: underline;
+    text-underline-offset: .25rem;
+    text-decoration-thickness: 2px;
+  }
+
 a.link-muted {
   color: #6c757d;
   text-decoration: none;

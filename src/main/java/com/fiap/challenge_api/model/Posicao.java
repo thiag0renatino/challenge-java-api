@@ -13,6 +13,12 @@ import java.util.List;
 public class Posicao {
 
     @Id
+    @SequenceGenerator(
+            name = "moto_pos_gen",
+            sequenceName = "SEQ_POS_CH",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "moto_pos_gen")
     private Long idPosicao;
 
     private Float xPos;
@@ -24,7 +30,6 @@ public class Posicao {
     @ManyToOne
     @JoinColumn(name = "moto_id_moto")
     private Moto moto;
-
 
     @ManyToOne
     @JoinColumn(name = "patio_id_patio")

@@ -8,7 +8,12 @@ import com.fiap.challenge_api.service.PosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +28,13 @@ public class PosicaoController {
     @Autowired
     private PosicaoService service;
 
-    @Operation(summary = "Listar todas as posições",
-            description = "Retorna uma lista com todas as posições registradas")
+    @Operation(summary = "Listar todas as posições com paginação",
+            description = "Retorna uma lista paginada com todas as posições registradas")
     @GetMapping
-    public ResponseEntity<List<PosicaoResponseDTO>> findAll(){
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<Page<PosicaoResponseDTO>> findAll(@ParameterObject
+                                                            @PageableDefault(page = 0, size = 20, sort = "idPosicao", direction = Sort.Direction.DESC)
+                                                            Pageable pageable) {
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @Operation(summary = "Listar posições por ID da moto",
@@ -69,21 +76,21 @@ public class PosicaoController {
     @Operation(summary = "Cadastrar nova posição",
             description = "Insere uma nova posição no sistema")
     @PostMapping
-    public ResponseEntity<PosicaoDTO> insert(@RequestBody @Valid PosicaoDTO dto){
+    public ResponseEntity<PosicaoDTO> insert(@RequestBody @Valid PosicaoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
     @Operation(summary = "Atualizar posição",
             description = "Atualiza os dados de uma posição com base no ID fornecido")
     @PutMapping("/{id}")
-    public ResponseEntity<PosicaoDTO> update(@PathVariable Long id, @RequestBody @Valid PosicaoDTO dto){
+    public ResponseEntity<PosicaoDTO> update(@PathVariable Long id, @RequestBody @Valid PosicaoDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
     @Operation(summary = "Excluir posição",
             description = "Remove uma posição do sistema com base no ID informado")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

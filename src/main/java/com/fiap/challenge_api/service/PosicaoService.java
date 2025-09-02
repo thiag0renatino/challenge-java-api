@@ -14,6 +14,8 @@ import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,11 +39,21 @@ public class PosicaoService {
     private MotoMapper motoMapper;
 
     @Cacheable("posicoes")
-    public List<PosicaoResponseDTO> findAll(){
-        return repository.findAll()
-                .stream()
+    public Page<PosicaoResponseDTO> findAll(Pageable pageable){
+        return repository.findAll(pageable)
+                .map(mapper::toResponseDTO);
+    }
+
+    public PosicaoResponseDTO findByIdResponse(Long id){
+        return repository.findById(id)
                 .map(mapper::toResponseDTO)
-                .toList();
+                .orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public PosicaoDTO findById(Long id){
+        return repository.findById(id)
+                .map(mapper::toDTO)
+                .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public List<PosicaoDTO> findByMotoId(Long motoId){
@@ -112,6 +124,14 @@ public class PosicaoService {
     @CacheEvict(value = "posicoes", allEntries = true)
     public PosicaoDTO insert(PosicaoDTO dto){
         Posicao posicao = mapper.toEntity(dto);
+
+        if (!motoRepository.existsById(dto.getIdMoto())) {
+            throw new ResourceNotFoundException(dto.getIdMoto());
+        }
+        if (!patioRepository.existsById(dto.getIdPatio())) {
+            throw new ResourceNotFoundException(dto.getIdPatio());
+        }
+
         return mapper.toDTO(repository.save(posicao));
     }
 
