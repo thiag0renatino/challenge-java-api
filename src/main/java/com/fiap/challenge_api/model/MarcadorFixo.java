@@ -2,7 +2,9 @@ package com.fiap.challenge_api.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
@@ -14,6 +16,12 @@ import java.util.List;
 public class MarcadorFixo {
 
     @Id
+    @SequenceGenerator(
+            name = "marcador_fixo_seq_gen",
+            sequenceName = "SEQ_MARCADOR_F_CH",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "marcador_fixo_seq_gen")
     private Long idMarcadorArucoFixo;
 
     private String codigoAruco;

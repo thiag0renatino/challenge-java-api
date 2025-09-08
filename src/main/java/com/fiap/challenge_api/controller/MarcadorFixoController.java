@@ -7,7 +7,12 @@ import com.fiap.challenge_api.service.MarcadorFixoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,11 +27,13 @@ public class MarcadorFixoController {
     @Autowired
     private MarcadorFixoService service;
 
-    @Operation(summary = "Listar todos os marcadores fixos",
-            description = "Retorna uma lista com todos os marcadores ArUco fixos cadastrados")
+    @Operation(summary = "Listar todos os marcadores fixos com paginação",
+            description = "Retorna uma lista paginada com todos os marcadores ArUco fixos cadastrados")
     @GetMapping
-    public ResponseEntity<List<MarcadorFixoResponseDTO>> findALl(){
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<Page<MarcadorFixoResponseDTO>> findALl(@ParameterObject
+                                                                 @PageableDefault(page = 0, size = 20, sort = "idMarcadorArucoFixo", direction = Sort.Direction.DESC)
+                                                                 Pageable pageable) {
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @Operation(summary = "Listar marcadores fixos por pátio",
@@ -46,14 +53,14 @@ public class MarcadorFixoController {
     @Operation(summary = "Cadastrar novo marcador fixo",
             description = "Cria um novo marcador ArUco fixo no sistema")
     @PostMapping
-    public ResponseEntity<MarcadorFixoDTO> insert(@RequestBody @Valid MarcadorFixoDTO dto){
+    public ResponseEntity<MarcadorFixoDTO> insert(@RequestBody @Valid MarcadorFixoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
     @Operation(summary = "Excluir marcador fixo",
             description = "Remove um marcador fixo com base no ID informado")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

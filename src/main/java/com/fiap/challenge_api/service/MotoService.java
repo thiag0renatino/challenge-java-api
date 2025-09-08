@@ -23,25 +23,27 @@ public class MotoService {
     @Autowired
     private MotoMapper mapper;
 
+    private static final String PLACA_PATTERN = ("^(?:[A-Z]{3}\\d[A-Z0-9]\\d{2}|[A-Z]{3}-?\\d{4})$");
+
     public Page<MotoDTO> findAll(Pageable pageable) {
         return repository.findAll(pageable)
                 .map(mapper::toDTO);
     }
 
-    public MotoDTO findById(Long id){
+    public MotoDTO findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toDTO)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    public List<MotoDTO> findByPlaca(String placa){
+    public List<MotoDTO> findByPlaca(String placa) {
         return repository.findByPlacaStartsWithIgnoreCase(placa)
                 .stream()
                 .map(mapper::toDTO)
                 .toList();
     }
 
-    public List<MotoDTO> findByStatus(String status){
+    public List<MotoDTO> findByStatus(String status) {
         return repository.findByStatusIgnoreCase(status)
                 .stream()
                 .map(mapper::toDTO)
@@ -55,17 +57,21 @@ public class MotoService {
                 .toList();
     }
 
-    public MotoDTO insert(MotoDTO dto){
+    public MotoDTO insert(MotoDTO dto) {
+        if (!dto.getPlaca().matches(PLACA_PATTERN)) {
+            throw new PlacaInvalidaException("Placa inválida. O padrão deve ser ABC1D23.");
+        }
+
         Moto moto = mapper.toEntity(dto);
         moto.setDataCadastro(LocalDate.now());
         return mapper.toDTO(repository.save(moto));
     }
 
-    public MotoDTO update(Long id, MotoDTO dto){
+    public MotoDTO update(Long id, MotoDTO dto) {
         Moto motoExist = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
 
-        if(!dto.getPlaca().matches("[A-Z]{3}[0-9][A-Z0-9][0-9]{2}")){
+        if (!dto.getPlaca().matches(PLACA_PATTERN)) {
             throw new PlacaInvalidaException("Placa inválida. O padrão deve ser ABC1D23.");
         }
 
@@ -77,7 +83,7 @@ public class MotoService {
         return mapper.toDTO(motoAtt);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         Moto moto = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(moto);

@@ -33,20 +33,26 @@
             <tbody>
             <tr th:each="p : ${patios}">
                 <td th:text="${p.idPatio}">1</td>
+
                 <td>
-                    <a th:href="@{'/web/patios/' + ${p.idPatio}}" th:text="${p.nome}">Pátio Central</a>
+                    <a th:href="@{/web/patios/{id}(id=${p.idPatio})}"
+                       th:text="${p.nome}">Pátio Central</a>
                 </td>
+
                 <td th:text="${p.descricao}">Principal</td>
                 <td th:text="${p.localizacao}">SP - Mooca</td>
+
                 <td class="text-end">
                     <a class="btn btn-sm btn-outline-secondary"
-                       th:href="@{'/web/patios/' + ${p.idPatio} + '/edit'}">Editar</a>
+                       th:href="@{/web/patios/{id}/edit(id=${p.idPatio})}">Editar</a>
 
-                    <a th:href="@{'/web/patios/' + ${p.idPatio} + '/motos'}" class="btn btn-sm btn-outline-success">
-                        Motos (histórico)
-                    </a>
+                    <a class="btn btn-sm btn-outline-success"
+                       th:href="@{/web/patios/{id}/motos(id=${p.idPatio})}">Motos (histórico)</a>
 
-                    <form th:action="@{'/web/patios/' + ${p.idPatio} + '/delete'}" method="post" class="d-inline">
+                    <a class="btn btn-sm btn-outline-primary"
+                       th:href="@{/web/marcadores-fixos/por-patio/{id}(id=${p.idPatio})}">Ver Marcador Fixo</a>
+
+                    <form th:action="@{/web/patios/{id}/delete(id=${p.idPatio})}" method="post" class="d-inline">
                         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
                         <button class="btn btn-sm btn-outline-danger"
                                 onclick="return confirm('Confirma exclusão?')">Excluir</button>
