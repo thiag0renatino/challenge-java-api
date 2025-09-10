@@ -26,4 +26,7 @@ public interface MarcadorArucoMovelMapper {
     @Mapping(source = "moto", target = "moto")
     MarcadorArucoMovelResponseDTO toResponseDTO(MarcadorArucoMovel entity);
 
+    @Mapping(source = "moto.idMoto", target = "idMoto")
+    MarcadorArucoMovelDTO toDtoFromResponse(MarcadorArucoMovelResponseDTO responseDto);
+
 }

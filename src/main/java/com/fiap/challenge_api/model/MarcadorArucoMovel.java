@@ -13,7 +13,13 @@ import java.time.LocalDate;
 public class MarcadorArucoMovel {
 
     @Id
-    private Long IdMarcadorMovel;
+    @SequenceGenerator(
+            name = "marcador_movel_seq_gen",
+            sequenceName = "SEQ_MARCADOR_M_CH",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "marcador_movel_seq_gen")
+    private Long idMarcadorMovel;
 
     private String codigoAruco;
 
@@ -25,11 +31,11 @@ public class MarcadorArucoMovel {
     private Moto moto;
 
     public Long getIdMarcadorMovel() {
-        return IdMarcadorMovel;
+        return idMarcadorMovel;
     }
 
     public void setIdMarcadorMovel(Long idMarcadorMovel) {
-        IdMarcadorMovel = idMarcadorMovel;
+        this.idMarcadorMovel = idMarcadorMovel;
     }
 
     public String getCodigoAruco() {

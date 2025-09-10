@@ -9,10 +9,11 @@ import com.fiap.challenge_api.repository.MarcadorArucoMovelRepository;
 import com.fiap.challenge_api.service.exception.MarcadorNotFoundException;
 import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Service
 public class MarcadorArucoMovelService {
@@ -23,14 +24,12 @@ public class MarcadorArucoMovelService {
     @Autowired
     private MarcadorArucoMovelMapper mapper;
 
-    public List<MarcadorArucoMovelResponseDTO> findAll(){
-        return repository.findAll()
-                .stream()
-                .map(mapper::toResponseDTO)
-                .toList();
+    public Page<MarcadorArucoMovelResponseDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(mapper::toResponseDTO);
     }
 
-    public MarcadorArucoMovelResponseDTO findById(Long id){
+    public MarcadorArucoMovelResponseDTO findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toResponseDTO)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
@@ -48,13 +47,13 @@ public class MarcadorArucoMovelService {
                 .orElseThrow(() -> new MarcadorNotFoundException(codigo));
     }
 
-    public MarcadorArucoMovelDTO insert(MarcadorArucoMovelDTO dto){
+    public MarcadorArucoMovelDTO insert(MarcadorArucoMovelDTO dto) {
         MarcadorArucoMovel marcadorArucoMovel = mapper.toEntity(dto);
         marcadorArucoMovel.setDataInstalacao(LocalDate.now());
         return mapper.toDTO(repository.save(marcadorArucoMovel));
     }
 
-    public MarcadorArucoMovelDTO update(Long id,MarcadorArucoMovelDTO dto){
+    public MarcadorArucoMovelDTO update(Long id, MarcadorArucoMovelDTO dto) {
         MarcadorArucoMovel marcadorExist = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
 
@@ -69,7 +68,7 @@ public class MarcadorArucoMovelService {
         return mapper.toDTO(marcadorAtt);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         MarcadorArucoMovel marcadorArucoMovel = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(marcadorArucoMovel);
