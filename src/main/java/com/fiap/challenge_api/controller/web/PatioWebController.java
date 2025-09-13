@@ -110,8 +110,10 @@ public class PatioWebController {
     }
 
     @GetMapping("/{id}")
-    public String detail(@PathVariable Long id, Model model) {
+    public String detail(@PathVariable Long id, Model model, @RequestParam(name = "from", required = false) String from
+    ) {
         model.addAttribute("patio", service.findById(id));
+        model.addAttribute("from", from);
         return "web/patios/detail";
     }
 }

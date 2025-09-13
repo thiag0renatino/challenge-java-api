@@ -13,7 +13,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -39,6 +41,11 @@ public class UsuarioService implements UserDetailsService {
         return repository.findById(id)
                 .map(mapper::toDTO)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    @Transactional(readOnly = true)
+    public UsuarioDTO me(Principal principal) {
+        return findByEmail(principal.getName());
     }
 
     @Override
