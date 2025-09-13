@@ -6,7 +6,12 @@ import com.fiap.challenge_api.service.MedicaoPosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,17 +26,19 @@ public class MedicaoPosicaoController {
     @Autowired
     MedicaoPosicaoService service;
 
-    @Operation(summary = "Listar todas as medições",
-            description = "Retorna uma lista com todas as medições registradas no sistema")
+    @Operation(summary = "Listar todas as medições com paginação",
+            description = "Retorna uma lista paginada com todas as medições registradas no sistema")
     @GetMapping
-    public ResponseEntity<List<MedicaoPosicaoDTO>> findAll(){
-        return ResponseEntity.ok(service.findAll());
+    public ResponseEntity<Page<MedicaoPosicaoDTO>> findAll(@ParameterObject
+                                                           @PageableDefault(page = 0, size = 20, sort = "idMedicao", direction = Sort.Direction.DESC)
+                                                           Pageable pageable) {
+        return ResponseEntity.ok(service.findAll(pageable));
     }
 
     @Operation(summary = "Buscar medição por ID",
             description = "Retorna os dados de uma medição específica pelo seu ID")
     @GetMapping("/{id}")
-    public ResponseEntity<MedicaoPosicaoDTO> findById(@PathVariable Long id){
+    public ResponseEntity<MedicaoPosicaoDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(service.findById(id));
     }
 
@@ -61,14 +68,14 @@ public class MedicaoPosicaoController {
     @Operation(summary = "Cadastrar nova medição",
             description = "Cria uma nova medição de posição no sistema")
     @PostMapping
-    public ResponseEntity<MedicaoPosicaoDTO> insert(@RequestBody @Valid MedicaoPosicaoDTO dto){
+    public ResponseEntity<MedicaoPosicaoDTO> insert(@RequestBody @Valid MedicaoPosicaoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
     @Operation(summary = "Excluir medição",
             description = "Remove uma medição do sistema com base no ID fornecido")
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

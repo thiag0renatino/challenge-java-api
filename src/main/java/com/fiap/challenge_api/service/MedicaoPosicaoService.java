@@ -8,6 +8,8 @@ import com.fiap.challenge_api.service.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,14 +24,12 @@ public class MedicaoPosicaoService {
     private MedicaoPosicaoMapper mapper;
 
     @Cacheable("medicoes")
-    public List<MedicaoPosicaoDTO> findAll(){
-        return repository.findAll()
-                .stream()
-                .map(mapper::toDTO)
-                .toList();
+    public Page<MedicaoPosicaoDTO> findAll(Pageable pageable) {
+        return repository.findAll(pageable)
+                .map(mapper::toDTO);
     }
 
-    public MedicaoPosicaoDTO findById(Long id){
+    public MedicaoPosicaoDTO findById(Long id) {
         return repository.findById(id)
                 .map(mapper::toDTO)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
@@ -50,13 +50,13 @@ public class MedicaoPosicaoService {
     }
 
     @CacheEvict(value = "medicoes", allEntries = true)
-    public MedicaoPosicaoDTO insert(MedicaoPosicaoDTO dto){
+    public MedicaoPosicaoDTO insert(MedicaoPosicaoDTO dto) {
         MedicaoPosicao medicaoPosicao = mapper.toEntity(dto);
         return mapper.toDTO(repository.save(medicaoPosicao));
     }
 
     @CacheEvict(value = "medicoes", allEntries = true)
-    public void delete(Long id){
+    public void delete(Long id) {
         MedicaoPosicao medicaoPosicao = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(id));
         repository.delete(medicaoPosicao);

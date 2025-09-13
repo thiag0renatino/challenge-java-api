@@ -1,7 +1,9 @@
 package com.fiap.challenge_api.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor
@@ -10,6 +12,12 @@ import lombok.*;
 public class MedicaoPosicao {
 
     @Id
+    @SequenceGenerator(
+            name = "medicao_seq_gen",
+            sequenceName = "SEQ_MEDICAO_CH",
+            allocationSize = 1
+    )
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "medicao_seq_gen")
     private Long idMedicao;
 
     @Column(name = "distancia_m")
