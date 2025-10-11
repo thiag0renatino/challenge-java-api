@@ -2,12 +2,13 @@ package com.fiap.challenge_api.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
-public class MarcadorArucoMovelResponseDTO {
+public class MarcadorArucoMovelResponseDTO extends RepresentationModel<MarcadorArucoMovelResponseDTO> {
 
     private Long idMarcadorMovel;
     private String codigoAruco;

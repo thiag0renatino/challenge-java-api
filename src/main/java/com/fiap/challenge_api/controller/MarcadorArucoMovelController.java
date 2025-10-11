@@ -44,8 +44,10 @@ public class MarcadorArucoMovelController {
     @Operation(summary = "Buscar marcador móvel por ID da moto",
             description = "Retorna o marcador móvel vinculado a uma moto específica")
     @GetMapping("/por-moto")
-    public ResponseEntity<MarcadorArucoMovelResponseDTO> findByMotoId(@RequestParam Long idMoto) {
-        return ResponseEntity.ok(service.findByMotoId(idMoto));
+    public ResponseEntity<Page<MarcadorArucoMovelResponseDTO>> findByMotoId(@RequestParam Long idMoto,
+                                                                            @PageableDefault(page = 0, size = 20, sort = "idMarcadorMovel", direction = Sort.Direction.DESC)
+                                                                            Pageable pageable) {
+        return ResponseEntity.ok(service.findByMotoId(idMoto, pageable));
     }
 
     @Operation(summary = "Buscar marcador móvel por código ArUco",
@@ -58,14 +60,14 @@ public class MarcadorArucoMovelController {
     @Operation(summary = "Cadastrar novo marcador móvel",
             description = "Cria um novo marcador ArUco móvel no sistema")
     @PostMapping
-    public ResponseEntity<MarcadorArucoMovelDTO> insert(@RequestBody @Valid MarcadorArucoMovelDTO dto) {
+    public ResponseEntity<MarcadorArucoMovelResponseDTO> insert(@RequestBody @Valid MarcadorArucoMovelDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
     @Operation(summary = "Atualizar marcador móvel",
             description = "Atualiza os dados de um marcador móvel com base no ID fornecido")
     @PutMapping("/{id}")
-    public ResponseEntity<MarcadorArucoMovelDTO> update(@PathVariable Long id, @RequestBody @Valid MarcadorArucoMovelDTO dto) {
+    public ResponseEntity<MarcadorArucoMovelResponseDTO> update(@PathVariable Long id, @RequestBody @Valid MarcadorArucoMovelDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 
