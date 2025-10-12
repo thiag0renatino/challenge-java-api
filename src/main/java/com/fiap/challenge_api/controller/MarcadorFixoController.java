@@ -53,7 +53,7 @@ public class MarcadorFixoController {
     @Operation(summary = "Cadastrar novo marcador fixo",
             description = "Cria um novo marcador ArUco fixo no sistema")
     @PostMapping
-    public ResponseEntity<MarcadorFixoDTO> insert(@RequestBody @Valid MarcadorFixoDTO dto) {
+    public ResponseEntity<MarcadorFixoResponseDTO> insert(@RequestBody @Valid MarcadorFixoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
