@@ -1,11 +1,12 @@
 package com.fiap.challenge_api.dto;
 
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class PatioDTO {
+public class PatioDTO extends RepresentationModel<PatioDTO> {
 
     private Long idPatio;
     private String nome;
