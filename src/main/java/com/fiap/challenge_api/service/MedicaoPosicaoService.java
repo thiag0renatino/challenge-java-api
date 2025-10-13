@@ -48,19 +48,23 @@ public class MedicaoPosicaoService {
     }
 
     public List<MedicaoPosicaoDTO> findByPosicaoIdPosicao(Long idPosicao) {
-        List<MedicaoPosicao> medicoes = repository.findByPosicaoIdPosicao(idPosicao);
-        return medicoes.stream()
+        List<MedicaoPosicaoDTO> dtos = repository.findByPosicaoIdPosicao(idPosicao)
+                .stream()
                 .map(mapper::toDTO)
-                .peek(MedicaoPosicaoService::addHateoasLinks)
                 .toList();
+
+        dtos.forEach(MedicaoPosicaoService::addHateoasLinks);
+        return dtos;
     }
 
     public List<MedicaoPosicaoDTO> findByMarcadorFixoId(Long idMarcadorFixo) {
-        List<MedicaoPosicao> medicoes = repository.findByMarcadorFixoIdMarcadorArucoFixo(idMarcadorFixo);
-        return medicoes.stream()
+        List<MedicaoPosicaoDTO> dtos = repository.findByMarcadorFixoIdMarcadorArucoFixo(idMarcadorFixo)
+                .stream()
                 .map(mapper::toDTO)
-                .peek(MedicaoPosicaoService::addHateoasLinks)
                 .toList();
+
+        dtos.forEach(MedicaoPosicaoService::addHateoasLinks);
+        return dtos;
     }
 
     public Long contarPorPosicao(Long idPosicao) {

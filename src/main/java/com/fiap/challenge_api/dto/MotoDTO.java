@@ -1,13 +1,16 @@
 package com.fiap.challenge_api.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MotoDTO {
+public class MotoDTO extends RepresentationModel<MotoDTO> {
 
     private Long idMoto;
     private String placa;

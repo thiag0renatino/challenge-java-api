@@ -58,11 +58,13 @@ public class MarcadorFixoService {
     }
 
     public List<MarcadorFixoResponseDTO> findByPatioId(Long patioId) {
-        return repository.findByPatioIdPatio(patioId)
+        List<MarcadorFixoResponseDTO> marcadores = repository.findByPatioIdPatio(patioId)
                 .stream()
                 .map(mapper::toResponseDTO)
-                .peek(MarcadorFixoService::addHateoasLinks)
                 .toList();
+
+        marcadores.forEach(MarcadorFixoService::addHateoasLinks);
+        return marcadores;
     }
 
     public MarcadorFixoResponseDTO findByCodigoAruco(String codigoAruco) {
