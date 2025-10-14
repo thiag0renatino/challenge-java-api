@@ -40,7 +40,7 @@ public class PosicaoController {
     @Operation(summary = "Listar posições por ID da moto",
             description = "Retorna todas as posições associadas à moto com o ID fornecido")
     @GetMapping("/moto/{motoId}")
-    public ResponseEntity<List<PosicaoDTO>> findByMotoId(@PathVariable Long motoId) {
+    public ResponseEntity<List<PosicaoResponseDTO>> findByMotoId(@PathVariable Long motoId) {
         return ResponseEntity.ok(service.findByMotoId(motoId));
     }
 
@@ -76,14 +76,14 @@ public class PosicaoController {
     @Operation(summary = "Cadastrar nova posição",
             description = "Insere uma nova posição no sistema")
     @PostMapping
-    public ResponseEntity<PosicaoDTO> insert(@RequestBody @Valid PosicaoDTO dto) {
+    public ResponseEntity<PosicaoResponseDTO> insert(@RequestBody @Valid PosicaoDTO dto) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.insert(dto));
     }
 
     @Operation(summary = "Atualizar posição",
             description = "Atualiza os dados de uma posição com base no ID fornecido")
     @PutMapping("/{id}")
-    public ResponseEntity<PosicaoDTO> update(@PathVariable Long id, @RequestBody @Valid PosicaoDTO dto) {
+    public ResponseEntity<PosicaoResponseDTO> update(@PathVariable Long id, @RequestBody @Valid PosicaoDTO dto) {
         return ResponseEntity.ok(service.update(id, dto));
     }
 

@@ -125,7 +125,7 @@ public class PosicaoWebController {
     // Listar por ID da MOTO
     @GetMapping("/moto/{motoId}")
     public String listByMoto(@PathVariable Long motoId, Model model) {
-        List<PosicaoDTO> posicoes = service.findByMotoId(motoId); // flat
+        List<PosicaoResponseDTO> posicoes = service.findByMotoId(motoId); // flat
         model.addAttribute("posicoes", posicoes);
         model.addAttribute("filtro", "Posições da Moto #" + motoId);
         return "web/posicoes/list-simples";

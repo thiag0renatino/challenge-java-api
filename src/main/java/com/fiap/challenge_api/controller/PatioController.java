@@ -4,6 +4,7 @@ import com.fiap.challenge_api.config.SecurityConfig;
 import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.dto.PatioDTO;
 import com.fiap.challenge_api.dto.PosicaoDTO;
+import com.fiap.challenge_api.dto.PosicaoResponseDTO;
 import com.fiap.challenge_api.service.MotoService;
 import com.fiap.challenge_api.service.PatioService;
 import com.fiap.challenge_api.service.PosicaoService;
@@ -70,7 +71,7 @@ public class PatioController {
     @Operation(summary = "Listar posições registradas no pátio",
             description = "Retorna todas as posições que foram registradas dentro do pátio informado")
     @GetMapping("/{id}/posicoes")
-    public ResponseEntity<List<PosicaoDTO>> findPosicoesPorPatio(@PathVariable Long id) {
+    public ResponseEntity<List<PosicaoResponseDTO>> findPosicoesPorPatio(@PathVariable Long id) {
         return ResponseEntity.ok(posicaoService.findByPatioId(id));
     }
 

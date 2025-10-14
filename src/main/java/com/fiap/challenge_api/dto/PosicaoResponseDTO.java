@@ -3,13 +3,14 @@ package com.fiap.challenge_api.dto;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonPropertyOrder({ "idPosicao", "xpos", "ypos", "dataHora", "moto", "patio" })
-public class PosicaoResponseDTO {
+public class PosicaoResponseDTO extends RepresentationModel<PosicaoResponseDTO> {
 
     private Long idPosicao;
     private Float xPos;

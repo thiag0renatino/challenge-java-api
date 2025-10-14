@@ -3,6 +3,7 @@ package com.fiap.challenge_api.controller;
 import com.fiap.challenge_api.config.SecurityConfig;
 import com.fiap.challenge_api.dto.MotoDTO;
 import com.fiap.challenge_api.dto.PosicaoDTO;
+import com.fiap.challenge_api.dto.PosicaoResponseDTO;
 import com.fiap.challenge_api.service.MotoService;
 import com.fiap.challenge_api.service.PosicaoService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -65,7 +66,7 @@ public class MotoController {
     @Operation(summary = "Listar posições da moto",
             description = "Retorna todas as posições registradas associadas a uma moto específica")
     @GetMapping("/{id}/posicoes")
-    public ResponseEntity<List<PosicaoDTO>> findPosicoesPorMoto(@PathVariable Long id) {
+    public ResponseEntity<List<PosicaoResponseDTO>> findPosicoesPorMoto(@PathVariable Long id) {
         return ResponseEntity.ok(posicaoService.findByMotoId(id));
     }
 
