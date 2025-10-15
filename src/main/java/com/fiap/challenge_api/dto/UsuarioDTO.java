@@ -1,11 +1,12 @@
 package com.fiap.challenge_api.dto;
 
 import lombok.*;
+import org.springframework.hateoas.RepresentationModel;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class UsuarioDTO {
+public class UsuarioDTO extends RepresentationModel<UsuarioDTO> {
 
     private Long idUsuario;
     private String email;
