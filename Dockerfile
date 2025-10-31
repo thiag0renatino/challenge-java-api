@@ -1,23 +1,22 @@
-# Usa imagem leve com Java 17
-FROM eclipse-temurin:17-jdk-alpine
+FROM maven:3.9.9-eclipse-temurin-17 AS builder
+WORKDIR /workspace
 
-# Cria usuário sem privilégios
-RUN addgroup -S spring && adduser -S spring -G spring
+COPY pom.xml .
+RUN mvn -B -q -DskipTests dependency:go-offline
 
-# Diretório de trabalho dentro do container
+COPY src ./src
+RUN mvn -B -DskipTests package
+
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 
-# Copia o .jar para dentro da imagem
-COPY target/challenge-api-0.0.1-SNAPSHOT.jar app.jar
+RUN addgroup -S spring && adduser -S spring -G spring
 
-# Ajusta permissões
-RUN chown spring:spring app.jar
+# Copia o jar
+COPY --from=builder /workspace/target/*SNAPSHOT.jar app.jar
 
-# Troca para o usuário limitado
-USER spring
-
-# Expõe a porta padrão do Spring Boot
+# Porta padrão do Spring Boot
 EXPOSE 8080
 
-# Comando para iniciar a aplicação
-ENTRYPOINT ["java", "-jar", "app.jar"]
+USER spring
+ENTRYPOINT ["java", "-jar", "/app/app.jar"]
